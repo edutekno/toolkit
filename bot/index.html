@@ -1,0 +1,281 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/markdown-it/13.0.1/markdown-it.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="https://rumahguru.org/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://rumahguru.org/api/data.js" defer></script>
+    <style>
+        .chat-box {
+            height: 77vh;
+            overflow-y: scroll;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            padding-bottom: 0;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 90%;
+            word-wrap: break-word;
+            white-space: normal;
+            font-size: 20px;
+            font-family: "Roboto";
+            font-weight: 400;
+        }
+
+        .left-side {
+            background-color: #f4f3f1;
+            float: left;
+        }
+
+        .right-side {
+            background-color: #cef0f4;
+            float: right;
+        }
+
+        .centered {
+            position: fixed;
+            text-align: center;
+            top: 25%;
+            left: 40%;
+        }
+
+        .left {
+            position: fixed;
+            text-align: center;
+            top: 0%;
+            left: 0%;
+        }
+
+        .right {
+            position: fixed;
+            text-align: right;
+            top: 3%;
+            right: 4%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        tr:nth-child(even){background-color: #eafbfd}
+
+        th {
+            background-color: #f9f0bd;
+            color: black;
+        }
+    </style>
+</head>
+<body class="bg-secondary" onload="myRole();">
+    <input id="prompt" type="hidden" class="form-control text-dark" />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="card text-white bg-gradient-secondary mt-3">
+                    <div id="left" class="left" style="display:block;"><img src="aibot.png" height="80"></div>
+                    <div id="rightt" class="right" style="display:block;">
+                        <a href="unduh.php?email=user&nickname=user" target="_blank"><button><b>Arsip</b></button></a>
+                    </div>
+                    <div class="card-header row">
+                        <div id="loading" class="centered" style="display:none;"><img src="https://rumahguru.org/img/loadingtech.gif" alt="LOADING"><br>LOADING...</div>
+                    </div>
+                    <div class="card-body chat-box rounded p1" id="chatbox"></div>
+                    <div class="card-footer">
+                        <div class="form-group row">
+                            <div class="col-md-10 mb-1">
+                                <input id="userInput" style="font-size: 22px;" type="text" class="form-control text-dark" placeholder="Tuliskan pesan disini..." />
+                            </div>
+                            <div class="col-md-2">
+                                <input id="sendButton" type="button" value="KIRIM!" class="form-control btn btn-warning btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.staticfile.org/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        function clearContent(){
+            document.getElementById('chatbox').innerHTML = '';
+        }
+
+        const url = new URL(window.location.href);
+        const key = url.searchParams.get('key');
+        if (key) {
+            $("#apiKey").val(key);
+            $("#apiKey").hide();
+        }
+
+        const chatbox = $("#chatbox");
+        const userInput = $("#userInput");
+        const sendButton = $("#sendButton");
+        const prompt = $("#prompt");
+        var vprompt = '';
+
+        let messages = [];
+
+        sendButton.on("click", () => {
+            const message = userInput.val();
+            document.getElementById('prompt').value = userInput.val();
+            if (message) {
+                messages.push({
+                    "role": "user",
+                    "content": message
+                });
+                const displaytext = window.markdownit().render(message);
+                let userMessageHtml = '<pre><div class="message right-side ">' + displaytext + '</div></pre>';
+                chatbox.append(userMessageHtml);
+                chatbox.animate({ scrollTop: 20000000 }, "slow");
+                userInput.val("");
+                sendButton.val("Tunggu sebentar...");
+                sendButton.prop("disabled", true);
+                document.getElementById("loading").style.display = "block";
+                fetchMessages();
+            }
+        });
+
+        userInput.on("keydown", (event) => {
+            if (event.keyCode === 13 && !event.ctrlKey && !event.shiftKey) {
+                event.preventDefault();
+                sendButton.click();
+            } else if (event.keyCode === 13 && (event.ctrlKey || event.shiftKey)) {
+                event.preventDefault();
+                const cursorPosition = userInput.prop("selectionStart");
+                const currentValue = userInput.val();
+
+                userInput.val(
+                    currentValue.slice(0, cursorPosition) +
+                    "\n" +
+                    currentValue.slice(cursorPosition)
+                );
+                userInput.prop("selectionStart", cursorPosition + 1);
+                userInput.prop("selectionEnd", cursorPosition + 1);
+            }
+        });
+
+        function fetchMessages() {
+            apiKey = "csk-d3rmj2fyyr6cffe62xhpjkxy5d4fpvyftj5jh29hdhhcrmn2";
+            var settings = {
+                url: "https://api.cerebras.ai/v1/chat/completions",
+                method: "POST",
+                timeout: 0,
+                headers: {
+                    "Authorization": "Bearer " + apiKey,
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify({
+                    model: "llama3.1-70b",
+                    messages: messages
+                })
+            };
+            $.ajax(settings).done(function(response) {
+                const message = response.choices[0].message;
+                messages.push({
+                    "role": message.role,
+                    "content": message.content
+                });
+                const htmlText = window.markdownit().render(message.content);
+                const botMessageHtml = '<pre><div class="message left-side ">' + htmlText + '</div></pre>';
+                chatbox.append(botMessageHtml);
+                chatbox.animate({ scrollTop: 20000000 }, "slow");
+                sendButton.val("KIRIM!");
+                sendButton.prop("disabled", false);
+                document.getElementById("loading").style.display = "none";
+                vprompt = prompt.val();
+                var data = {
+                    email: 'user',
+                    chatbot: 'llama3.1-70b',
+                    data1: vprompt,
+                    data2: htmlText,
+                    bot: 'tamimbot_eksperimen'
+                };
+                sendDataToPHP('save_data_ex.php', data, function(error, response) {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.log(response);
+                    }
+                });
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                let errorText = 'Error koneksi. Coba lagi setelah beberapa saat.';
+                let errorMessage = '<pre><div class="message left-side  text-danger">' + errorText + '</div></pre>';
+                alert(errorText);
+                sendButton.val("KIRIM!");
+                sendButton.prop("disabled", false);
+                document.getElementById("loading").style.display = "none";
+            });
+        }
+
+        function myRole() {
+//            const message = "You are named Muhammad Tamim, a learning specializing in the academic topics, a learning partner. introduce in short words (no more than 20 words). Use bahasa Indonesia";
+message ='Anda adalah asisten AI yang membantu Bp/Ibu guru dalam pekerjaannya. tawarkan guru untuk bertanya tentang apa yang perlu dibantu dalam tugas guru dalam pengajaran/pembelajaran (misal ttg kategori Tujuan/hasil/target Pembelajaran (TP), Aktivitas Pembelajaran (AP), penilaian/asesmen Pembelajaran (PP), pemahaman materi pelajaran (MP), psikologi/karakter siswa dan pengelolaan kelas, dll). Jika guru tidak memiliki pertanyaan, berikan beberapa contoh pertanyaan yang dapat diajukan guru ke AI (tulis dalam kategori dengan format bullet list dan berikan kode (huruf-angka, misal TP1,TP2, AP1,AP2 dst) pada setiap pertanyaan tsb. jika ingin memilih pertanyaan tsb, cukup dengan menuliskan kode pertanyaan dan AI akan menjawab pertanyaan dengan kode tsb.). tawarkan juga jika ingin bertanya untuk topik materi spesifik (3 pertanyaan) (misal terkait sains, matematika, bahasa dll). Agar konteks lebih tepat, tanyakan juga nama, mata-pelajaran yg diampu/diajarkan,jenjang mengajar';
+
+            
+            if (message) {
+                messages.push({
+                    "role": "user",
+                    "content": message
+                });
+                const displaytext = window.markdownit().render(message);
+                let userMessageHtml = '<pre><div class="message right-side ">' + displaytext + '</div></pre>';
+                let q = '<pre><div class="message right-side ">' + '<?echo $q?>' + '</div></pre>';
+                chatbox.append(q);
+                chatbox.animate({ scrollTop: 20000000 }, "slow");
+                userInput.val("");
+                sendButton.val("Tunggu sebentar...");
+                sendButton.prop("disabled", true);
+                document.getElementById("loading").style.display = "block";
+                fetchMessages();
+            }
+        }
+
+        function sendDataToPHP(url, data, callback) {
+            var xhr = new XMLHttpRequest();
+            var jsonData = JSON.stringify(data);
+
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    callback(null, xhr.responseText);
+                } else {
+                    callback('Error: ' + xhr.status);
+                }
+            };
+
+            xhr.onerror = function() {
+                callback('Request failed.');
+            };
+
+            xhr.send(jsonData);
+        }
+    </script>
+</body>
+</html>
