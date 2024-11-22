@@ -142,7 +142,7 @@
         let messages = [];
 
         sendButton.on("click", () => {
-            const message = userInput.val();
+            const message = userInput.val()+" ((Jika user tidak memiliki pertanyaan, berikan 3 ide pertanyaan))";
             document.getElementById('prompt').value = userInput.val();
             if (message) {
                 messages.push({
