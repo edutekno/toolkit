@@ -142,12 +142,12 @@
         let messages = [];
 
         sendButton.on("click", () => {
-            const message = userInput.val()+" ((Jika user tidak memiliki pertanyaan, berikan 3 ide pertanyaan))";
+            const message = userInput.val();
             document.getElementById('prompt').value = userInput.val();
             if (message) {
                 messages.push({
                     "role": "user",
-                    "content": message
+                    "content": message+" ((Jika user tidak memiliki pertanyaan, berikan 3 ide pertanyaan))"
                 });
                 const displaytext = window.markdownit().render(message);
                 let userMessageHtml = '<pre><div class="message right-side ">' + displaytext + '</div></pre>';
