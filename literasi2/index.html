@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<link href='https://www.blogger.com/static/v1/widgets/55013136-widget_css_bundle.css' rel='stylesheet' type='text/css'/>
+<link as='script' href='https://cdn.jsdelivr.net/gh/nextapps-de/winbox@0.1.8/dist/winbox.bundle.js' rel='preload'/>
+<script defer='defer' src='https://cdn.jsdelivr.net/gh/nextapps-de/winbox@0.1.8/dist/winbox.bundle.js'></script>
+<title>AI Literasi Toolkits</title>
+<link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet'/>
+<link href='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css' rel='stylesheet'/>
+<script src='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'></script>
+<link crossorigin='anonymous' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' rel='stylesheet'/>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
+<script src='https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js'></script>
+<script src='https://cdn.staticfile.org/markdown-it/13.0.1/markdown-it.min.js'></script>
+<!-- <script defer='defer' src='https://rumahguru.org/api/data.js'/> -->
+<style>
+	
+	
+	body {
+        //color: black;
+        font-size: 14px;
+            }
+      
+      h1 {
+          color: darkblue;
+  font-size: 20px;font-weight: bold;
+}
+
+h2 {
+  font-size: 20px;color: darkblue;font-weight: bold;
+}
+      
+h3 {
+  font-size: 16px;font-weight: bold;color: DodgerBlue;
+}	
+h4 {
+  font-size: 15px;
+}	
+	
+		.chat-box {
+			height: 67vh;
+			overflow-y: scroll;
+			display:none;
+		}
+
+		.message {
+			margin-bottom: 10px;
+			padding: 10px;
+			padding-bottom: 0;
+			border-radius: 10px;
+			display: inline-block;
+		
+			max-width: 70%;
+			word-wrap: break-word;
+			white-space: normal;
+		}
+
+		.left-side {
+			background-color: lightgray;
+			float: center;
+			text-align: left;
+		}
+
+		.right-side {
+			background-color: lightgreen;
+			float: right;
+		}
+		
+		
+		table, th, td {
+  border: 1px solid;
+}
+	</style>
+<style id='page-skin-1' type='text/css'><!--
+/* Define your CSS styles here */
+
+--></style>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<style>
+
+
+
+/* End of all :P*/
+	</style>
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+
+</head>
+<body>
+<div class='no-items section' id='main'></div>
+<!-- _______________________________________________________________________________________________________________________________________________________________ -->
+<nav class='navbar navbar-toggleable-md navbar-dark bg-secondary'>
+<button aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation' class='navbar-toggler navbar-toggler-right' data-target='#navbarSupportedContent' data-toggle='collapse' type='button'>
+<span class='navbar-toggler-icon'></span> AI Literasi Numerasi
+    </button>
+<a class='navbar-brand' href='https://mtamim.com'><img align='right' height='50%' src='https://blogger.googleusercontent.com/img/a/AVvXsEiauoRQ7i9fcn7yR25Se_NteOxPGJkajAdKl1nhb50wxUY8bzz93j4o-1wPpaBCLPiuM8T-lJtBi1S_3tUv5nKhsWmoMOWtR5r34de5osbK-d8m0S6YncVyNi2xRZyfenLKmTNdBVta5JjVKnYnSBPQCYnMZferjot6AJDjk3q4fMbFx3czh4Be-QWJigI0=s454' width='25%'/></a>
+<div class='collapse navbar-collapse' id='navbarSupportedContent'>
+<ul class='navbar-nav mr-auto'>
+<li class='nav-item active'>
+<a class='nav-link' href='#'>Home</a>
+</li>
+</ul>
+</div>
+</nav>
+<div class='jumbotron jumbotron-fluid bg-dark text-white' id='jumbo' style='background: url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhz3ilvd1goXU75C0Sf4PTSCorRCYOK2tmgvmJQ6u6k57jdK7fHbchw8fvdqD1IkyixcKiBrwFYtIT8flAX1_9puD8lvN-wT3CJw-i20-AUomTYv8GngnGTjunhambFZ9SAc_HQK6stGRiHxrowU3rNLoKffSH-pMorKedCwZt4gPheqGYpnzaLrBY4fyI/s16000/jumbo1.png) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;'>
+<div class='container'>
+<h1 class='display-4  text-white'>Literasi Numerasi</h1>
+<p class='lead'>Aplikasi ini merupakan aplikasi yang dapat digunakan untuk alat bantu pembelajaran terkait Literasi Numerasi. &#8203;<br/> Dapat juga membuat soal literasi numerasi dan bahan bacaan siswa. Tuliskan kata kunci pada kolom yang tersedia, AI akan membuatkan hasil sesuai kata kunci. Pastikan mengecek kembali hasil dari AI dan menyesuaikan dengan kondisi kelas dan siswa.&#8203;. </p>
+<p class='lead'>
+<button class='btn btn-warning btn-lg' onclick='document.getElementById(&#39;jumbo&#39;).style.display = &#39;none&#39;' role='button'>Mulai</button>
+<!-- <button class='btn btn-success btn-lg' role='button'> <a href='https://www.youtube.com/@MTamim/videos'>Tutorial</a></button> -->
+</p>
+</div>
+</div>
+<div class='container-fluid'>
+<div class='row'>
+<div class='col-md-12 mb-3'>
+<div>
+<div align='center'>
+<div class='col-md-4 mb-1'>
+</div>
+<div class='col-md-4 mb-1'>
+<!-- <input id="userInput" type="text" class="form-control text-dark" placeholder="Topik materi dan jenjang kelas" /> -->
+</div>
+<div class='col-md-4'>
+</div>
+</div>
+<div class='container'>
+<div class='row '>
+<div class='col-md-3'>
+<!-- KOLOM KIRI -->
+<div style='color: black;'>
+                                  
+                                
+                                   Link akses aplikasi:<br/>
+<p>
+<a href='https://aiinstitute.my.id/literasi' target='_blank'><h3>aiinstitute.my.id</h3></a>
+<!-- <a href='https://gtk2.mtamim.com/' target='_blank'><h3>gtk2.mtamim.com</h3></a> <a href='https://gtk3.mtamim.com/' target='_blank'><h3>gtk3.mtamim.com</h3></a> -->
+</p>
+<br/>
+<b>Jenis:</b></div>
+<select class='form-control text-dark' id='komponen' name='komponen'>
+<!-- <option value=' Jawablah atau kerjakan instruksi berikut dalam bahasa indoneia: '>Tanya-Jawab</option> <option value=' Tampilkan gambar yang diembedded dengan dengan format !![](https://image.pollinations.ai/prompt/{keyword}) . Jangan tambahkan spasi pada format tsb . Keyword ditulis dalam bahasa inggris, ganti spasi dengan hypen. Tulis judul. keyword dan deskripsi (deskripsi merupakan posting social media yang inspiratif dan menarik). Jangan menambahkan informasi lain. Buatkan keyword dengan gaya visual menarik dengan berdasar deskripsi berikut:'>Generate Gambar+Caption</option> <option value=' Buatkan perintah/prompt untuk generate gambar/image. Tuliskan dengan jelas subjek utama, latar dan lingkungan, style dan angle yang menarik. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris dengan gaya visual menarik dengan berdasar deskripsi berikut:'>Prompt Gambar</option> <option value=' Buatkan perintah/prompt untuk generate video. Tuliskan dengan jelas subjek utama, latar dan lingkungan, gerakan atau transisi dan angle yang menarik. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris dengan gaya visual menarik dengan berdasar deskripsi berikut:'>Prompt Video</option> <option value=' Buatkan perintah/prompt untuk generate suara dengan karakteristik unik. Tuliskan dengan panjang dan jelas menunjukkan subjek utama, style, intonasi, perasaan. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris berdasar deskripsi berikut:'>Prompt Suara</option> <option value=' Buatkan prompt yang tepat dan efektif untuk ditanyakan ke AI chatbot dengan mennuliskan Role untuk AI (misalnya: kamu adalah seorang ahli di bidang... dst) dilanjutkan dengan instruksi lengkap mengikuti framework co-star (Context, Objective, Style, Tone, Audience, and Response atau Konteks, Tujuan, Gaya, Suasana, Audiens, dan Respons.) dan buatkan 5 contoh prompt yang sesuai framework co-star. Di akhir, buatkan contoh prompt lengkap tersebut dalam bentuk bullet listyang mudah untuk di-copy-paste. tambahkan saran penggunaan dan cara mengevaluasi dan memperbaiki hasil prompt agar lebih efektif. /n Prompt awal atau topiknya adalah berikut: '>Prompt Maker</option> <option value=' Tampilkan gambar yang diembedded dengan dengan format !![](https://image.pollinations.ai/prompt/{keyword}) . Jangan tambahkan spasi pada format tsb . Keyword ditulis dalam bahasa inggris, ganti spasi dengan hypen. Tulis sebuah cerita (500 kata lebih) dengan judul menarik sesuai keyword. tuliskan cerita yang menarik dan memiliki makna dan hikmah yang positif. Jangan menambahkan informasi lain. Buatkan keyword dengan gaya visual menarik dengan berdasar deskripsi berikut:'>Story Maker</option> -->
+<option value='ide pembelajaran yang melibatkan peningkatan kompetensi literasi siswa melalui topik materi pembelajaran. fokuskan pada literasi terkait fakta/konsep/prosedur yang sesuai pada materi yang dipelajari disertai contoh-contoh yang dapat mencapai tujuan pembelajaran sekaligus meningkatkan kemampuan literasinya. di akhir, jelaskan literasi yang dilatihkan dalam materi pelajaran yang bersangkutan. Berikan aktivitas pembelajarannya. Berikan alternatif untuk asesmen literasinya tsb. Topik materi pelajaran :'>Pembelajaran Literasi</option>
+<option value='ide pembelajaran yang melibatkan peningkatan kompetensi numerasi siswa melalui topik materi pembelajaran. fokuskan pada numerasi terkait fakta/konsep/prosedur yang sesuai pada materi yang dipelajari disertai contoh-contoh yang dapat mencapai tujuan pembelajaran sekaligus meningkatkan kemampuan numerasi. di akhir, jelaskan kemampuan numerasi yang dilatihkan dalam materi pelajaran yang bersangkutan. Berikan aktivitas pembelajarannya. Berikan alternatif untuk asesmen numerasi tsb. Topik materi pelajaran :'>Pembelajaran Numerasi</option>
+<option value='Buatkan soal literasi pada suatu topik materi. Fokus pada kemampuan literasi: Soal literasi harus berfokus pada kemampuan membaca, menulis, dan memahami teks, bukan hanya mengingat fakta atau informasi.Menggunakan bahasa yang jelas dan singkat: Soal harus menggunakan bahasa yang jelas, singkat, dan tidak bermakna ganda.Memiliki stimulus yang relevan: Stimulus yang digunakan harus relevan dengan topik dan tujuan soal.Mengukur kemampuan yang spesifik: Soal harus mengukur kemampuan literasi yang spesifik, seperti kemampuan membaca pemahaman, kemampuan menulis, atau kemampuan menganalisis teks.Topik materinya adalah: '>Soal Literasi</option>
+<option value='Buatkan soal numerasi pada suatu topik materi. Fokus pada kemampuan numerasi: Soal numerasi harus berfokus pada kemampuan menggunakan angka dan konsep matematika, bukan hanya mengingat fakta atau informasi.Menggunakan bahasa yang jelas dan singkat: Soal harus menggunakan bahasa yang jelas, singkat, dan tidak bermakna ganda.Memiliki konteks yang relevan: Konteks soal harus relevan dengan kehidupan sehari-hari atau bidang studi yang spesifik.Mengukur kemampuan yang spesifik: Soal harus mengukur kemampuan numerasi yang spesifik, seperti kemampuan menghitung, mengukur, atau menganalisis data.Topik materinya adalah: '>Soal Numerasi</option>
+<option value=' Tampilkan gambar yang diembedded dengan dengan format !![](https://image.pollinations.ai/prompt/{keyword}) . Jangan tambahkan spasi pada format tsb . Keyword ditulis dalam bahasa inggris, ganti spasi dengan hypen. Instruksi utama: Tulis sebuah cerita (500 kata lebih) untuk belajar literasi dengan judul menarik sesuai keyword. tuliskan 1 chapter dengan gaya penulisan seperti buku “Bedtime Math: The Truth Comes Out” (book that helps kids learn math/science through engaging stories and real-life scenarios) dengan tambahan 5 pertanyaan/soal untuk latihan kemampuan literasi di akhir. Jangan menambahkan informasi lain. Buatkan keyword gambar dengan gaya visual menarik dengan berdasar deskripsi atau topik berikut:'>Cerita Bacaan Literasi</option>
+<option value=' Tuliskan sebuah cerita untuk meningkatkan skill numerasi siswa (500 kata lebih) dengan judul menarik sesuai keyword. tuliskan 1 chapter terkait keterampilan numerasi (math problem solving) dengan gaya penulisan seperti buku “Bedtime Math: The Truth Comes Out” (book that helps kids learn math/science through engaging stories and real-life scenarios) dengan tambahan 5 pertanyaan/soal untuk latihan numerasi matematika di akhir. Jangan menambahkan informasi lain. Buatkan keyword gambar dengan gaya visual menarik dengan berdasar deskripsi atau topik berikut:'>Cerita Bacaan Numerasi</option>
+</select>
+<br/>
+<div style='color: black;'><b>Topik materi/Pertanyaan/Instruksi:</b></div>
+<!-- <input id="userInput" type="text" class="form-control text-dark" placeholder="Topik materi" /> -->
+<textarea class='form-control' id='userInput' rows='3'></textarea>
+<br/>
+<div class='btn-group'>
+<input class=' form-control btn btn-warning btn-rounded ' id='sendButton' style='color: white;' type='button' value='SUBMIT'/>
+<br/>
+</div>
+<div class='text-center' id='loading' style='display:none;'><img height='200' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivL2OzreT_aLKW6K2aiRvsdStE1NiWdirOeWbbJjAwm6Ui7S7UiVCO_SALoD6ABs1mxzrYI1yEr4xAE2xzyOtUuIJZWLuRUxS8SsPeexSKFhwHR7V9HlywhORhtW2SbfIp5lTEohAzzyerakBYy65rkpUFflYh_5IfAaPYS0RSu2SwljQsEikWtkvHrwGw/s1600/loadingtech.gif' width='200'/><br/>LOADING...</div>
+<br/><br/>
+<!-- <a href='#' onclick='winBox()'> <img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgVhoTdUOtrd7ptg35hTkv0iPr0TYCfReJ8mF_rJVvpSz64YBJt_5aeoXT7dYwi7tmBIfTxtnZGV1dk-OrREb1KnFESjyFbx31R0yfj5tmyaj8FkP6FD7ivWmfFZT9ggrxD3K0MWpHKkKKjVt0H2wDifi52PQaWX5cFDnfX7ZHpLvR5oKuyLbANA1Ep3I8g/s1600/b3.png' width='80%'/></a> <br/> <a href='https://chat.whatsapp.com/C5OY2gKwuJ7LEYMvwrSPZc' target='_blank'><img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3iLZdknTirh9vgKDB5B0G8WBMxJSrECoBuTX5uLNOQAHauQ1VugKRdKlUfFELTTLsgxsMMHTK5Ipi5LNLNeycWa1lUj_W5gw0jLCIujk3-N7LWzLl6pz76jAS2w_9ZI4nbAGgbJiio6AVZ_BOtLDt5LwgDyFdsZ2zTno4sBG8OrFnAxTR9oF4NFeBHAWK/s1600/b5.png' width='80%'/></a> <br/> <a href='https://instagram.com/mtamim/' target='_blank'> <img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9x7goRrTXBE0_FQ7LtpK3ENYDACiDuaj3-pEjGZJYhg8dnKm_cSS2avhyBWSCl_6XVXBcVlI5DleYnRbnMAmKlzy0y-T1WeYSqVyJz-mc4etc9A4HhuL9GgUYvPr1D7d8GwCHOtxuDBkBn3Ftqrs_wiGz-ArHO9Se4I6_Qq-_3djDBpuqVj9N20pdciXb/w200-h56/follow-us-on-instagram-icon.png'/> </a> <br/> <a href='https://www.youtube.com/@MTamim/videos' target='_blank'> <img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvhQo07srBl506fyHRHeVOukBr6M_IA-r6OBww7be_il-OBOrhbIyflDDOPB1xT3Y8ZYR9u8sTclcHVwKpsF20QWNrrk2tFFTvMeUgAnnWR0kUPlGAKfJuK86vqkMQZQ4sb0qX9lpiWSopUiXEfoFqMwPgT30MIdLFShiWFZcfb4FdlvP7bt6yo17kNHjv/s1600/tutor.png'/> </a> <br/> -->
+<!-- <div class='centered' id='loading' style='display:none;'><img alt='LOADING' src='https://rumahguru.org/img/loadingtech.gif'/><br/>LOADING...</div> -->
+</div>
+<div class='col-md-9'>
+<br/>
+<textarea cols='100' id='txtresp' rows='15' style='max-width:100%;height: 470px;border-radius: 10px;box-shadow: 0 0 0 1px #aaa;border: 1px solid transparent;'></textarea>
+					
+<!-- <button onclick="copyText()">Salin Teks</button> <button onclick='toggle()'>Arsip </button> -->
+<button onclick='clearEditor()'>Hapus Teks</button><br/>
+<div id='chatbox'></div>
+<script>
+var simplemde = new SimpleMDE({ element: document.getElementById("txtresp"),spellChecker: false });
+</script>
+</div>
+</div>
+</div>
+<br/>
+</div></div></div>
+</div>
+<script crossorigin='anonymous' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' src='https://cdn.staticfile.org/popper.js/1.14.7/umd/popper.min.js'></script>
+<script crossorigin='anonymous' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+<script>
+function clearContent(){
+    document.getElementById('chatbox').innerHTML = '';
+}
+
+const url = new URL(window.location.href);
+const key = url.searchParams.get('key');
+    if (key) {
+            $("#apiKey").val(key);
+            $("#apiKey").hide();
+    }	
+const chatbox = $("#chatbox");
+const komponen = $("#komponen");
+const userInput = $("#userInput");
+const sendButton = $("#sendButton");
+const txtres = $("#txtres");
+let messages = [];
+//let messages = new Array(2);
+//messages.length = 3;
+
+sendButton.on("click", () => {
+    
+    //var sel = document.getElementById("komponen");
+    //var ctext= sel.options[sel.selectedIndex].text;
+    
+    
+    let message = "Tuliskan "+komponen.val()+" "+userInput.val()+" (Jawablah dengan Bahasa Indonesia!) (gunakan markdown header (mulai ##) dan sub-header (###, ####) jika perlu. Gunakan format tabel markdown jika diperlukan). ";
+    if (message) {
+        messages.push({
+            "role": "user",
+            "content": message
+        });
+		const displaytext = window.markdownit().render(message);
+		let userMessageHtml = '<pre><div>' + displaytext + '</div></pre>';
+		//chatbox.append(userMessageHtml);
+		//chatbox.animate({ scrollTop: 20000000 }, "slow");
+        //userInput.val("");
+        sendButton.val("LOADING...");
+	//sendButton.prop("disabled", true);
+        document.getElementById("loading").style.display = "block";
+        if (simplemde.isPreviewActive()== true) simplemde.togglePreview();
+        fetchMessages();
+    }
+});
+      
+      //<![CDATA[
+
+userInput.on("keydown", (event) => {
+    if (event.keyCode === 13 && !event.ctrlKey && !event.shiftKey) {
+        event.preventDefault();
+        sendButton.click();
+    } else if (event.keyCode === 13 && (event.ctrlKey || event.shiftKey)) {
+        event.preventDefault();
+        const cursorPosition = userInput.prop("selectionStart");
+        const currentValue = userInput.val();
+
+        userInput.val(
+            currentValue.slice(0, cursorPosition) +
+            "\n" +
+            currentValue.slice(cursorPosition)
+        );
+        userInput.prop("selectionStart", cursorPosition + 1);
+
+        userInput.prop("selectionEnd", cursorPosition + 1);
+    }
+});
+
+//]]>
+
+function fetchMessages() {
+//apiKey = "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";
+apiKey = "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";
+            
+//	const apiKey = document.cookie.replace(/(?:(?:^|.*;\s*)roti\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        var settings = {
+            url: "https://api.groq.com/openai/v1/chat/completions",
+            method: "POST",
+            timeout: 0,
+            headers: {
+                "Authorization": "Bearer " + apiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                model: "llama3-70b-8192",
+      			//model: "gemma2-9b-it",
+                messages: messages
+            })
+        };
+        $.ajax(settings).done(function(response) {
+            const message = response.choices[0].message;
+            messages.push({
+                "role": message.role,
+                "content": message.content
+            });
+			const htmlText = window.markdownit().render(message.content);
+			const botMessageHtml = '<div>' + htmlText + '</div>';
+           
+      		//chatbox.append(botMessageHtml);	
+      
+			//txtres.val(htmlText);		
+			// document.getElementById("txtresp").value =message.content;
+			//$('#txtresp').val(message.content);
+			
+			//simplemde.value=("");
+			var pos = simplemde.codemirror.getCursor();
+			simplemde.codemirror.setSelection(pos, pos);
+			simplemde.codemirror.replaceSelection(message.content+"\n \n ____ \n \n");
+			if (simplemde.isPreviewActive()== false) simplemde.togglePreview();
+			
+			chatbox.animate({ scrollTop: 20000000 }, "slow");
+            sendButton.val("SUBMIT");
+            sendButton.prop("disabled", false);
+            document.getElementById("loading").style.display = "none";
+      		document.getElementById("userInput").focus();
+      
+      
+      
+                      var data = {
+                email: 'GTK1',
+                chatbot: 'GTK-1',
+                data1: userInput.val() +" ",
+                data2: htmlText,
+                bot: 'tamimbot_eksperimen'
+                };
+
+            sendDataToPHP('https://rumahguru.org/chats/save_data.php', data, function(error, response) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log(response);
+                }
+                });
+
+      
+      
+      
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            //sendButton.val("Error");
+      		alert("Error loading...");
+			let errorText = 'Please provide chatGPT apiKey and try again.';
+			let errorMessage = '<pre><div>' + errorText + '</div></pre>';
+            chatbox.append(errorMessage);
+			chatbox.animate({ scrollTop: 20000000 }, "slow");
+        });
+    }
+    
+    
+    
+    
+    
+function copyText() {
+  const element = document.querySelector('#txtresp');
+  element.select();
+  element.setSelectionRange(0, 99999);
+  document.execCommand('copy');
+}
+
+function toggle() {
+  var x = document.getElementById("chatbox");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}    
+ function clearEditor() {
+    // Destroy the SimpleMDE instance
+    simplemde.toTextArea();
+    document.getElementById("txtresp").value = "";
+    // Create a new SimpleMDE instance with an empty value
+    simplemde = new SimpleMDE({
+        element: document.getElementById("txtresp"),
+        initialValue: ""
+    });
+}   
+      
+      
+      
+function sendDataToPHP(url, data, callback) {
+  var xhr = new XMLHttpRequest();
+  var jsonData = JSON.stringify(data);
+
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      callback(null, xhr.responseText);
+    } else {
+      callback('Error: ' + xhr.status);
+    }
+  };
+
+  xhr.onerror = function() {
+    callback('Request failed.');
+  };
+
+  xhr.send(jsonData);
+}
+            
+      
+      
+      
+      
+ </script>
+<!-- _______________________________________________________________________________________________________________________________________________________________ -->
+<script>
+function winBox() {
+ var winbox = new WinBox("Vera-ChatBot");
+ var name= document.getElementById("nickname");   
+var url= "https://rumahguru.org/ai/bot/vera.php?name="+document.getElementById("nickname").value;   
+   winbox.setBackground("#0000ff");winbox.resize("100%", "100%");winbox.move("right", "center");
+//   winbox.setUrl("https://rumahguru.org/ai/bot/vera.php?name="+name)
+   winbox.setUrl(url)
+}
+
+ </script>
+<!-- Histats.com START (html only)-->
+<a alt='free statistics' href='https://www.histats.com/viewstats/?SID=4767358&f=2' target='_blank'><div id='histatsC'><img border='0' src='//s4is.histats.com/stats/i/4767358.gif?4767358&103'/></div></a>
+<!-- Histats.com END -->
+<!-- Statcounter code for mtamim http://mtamim.com on Blogger -->
+<script type='text/javascript'>
+//<![CDATA[
+var sc_project=12953963; 
+var sc_invisible=1; 
+var sc_security="51347e8a"; 
+//]]>
+</script>
+<script async='async' src='https://www.statcounter.com/counter/counter_xhtml.js' type='text/javascript'></script>
+<noscript><div class='statcounter'><a class='statcounter' href='https://statcounter.com/' title='Web Analytics Made Easy - Statcounter'><img alt='Web Analytics Made Easy - Statcounter' class='statcounter' referrerpolicy='no-referrer-when-downgrade' src='https://c.statcounter.com/12953963/0/51347e8a/1/'/></a></div></noscript>
+<!-- End of Statcounter Code -->
+<script>
+function winBox() {
+ var winbox = new WinBox("Scholar ChatBot");
+ var name= document.getElementById("nickname");   
+var url= "https://rumahguru.org/chats/gr.php?m=gemma2-9b-it";
+   winbox.setBackground("#0000ff");winbox.resize("100%", "100%");winbox.move("right", "center");
+   winbox.setUrl(url)
+}
+</script>
+
+<script type="text/javascript" src="https://www.blogger.com/static/v1/widgets/984859869-widgets.js"></script>
+<script type='text/javascript'>
+window['__wavt'] = 'AOuZoY7sOxQLihJ1D7rme4ul7hKQJq4qmQ:1732416050671';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d150395339481667583','//litnumai.blogspot.com/','150395339481667583');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '150395339481667583', 'title': 'MTamim,com - Literasi Numerasi', 'url': 'https://litnumai.blogspot.com/', 'canonicalUrl': 'https://litnumai.blogspot.com/', 'homepageUrl': 'https://litnumai.blogspot.com/', 'searchUrl': 'https://litnumai.blogspot.com/search', 'canonicalHomepageUrl': 'https://litnumai.blogspot.com/', 'blogspotFaviconUrl': 'https://litnumai.blogspot.com/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': false, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': '', 'encoding': 'UTF-8', 'locale': 'id', 'localeUnderscoreDelimited': 'id', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'isDynamicViewsAvailable': true, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22MTamim,com - Literasi Numerasi - Atom\x22 href\x3d\x22https://litnumai.blogspot.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22MTamim,com - Literasi Numerasi - RSS\x22 href\x3d\x22https://litnumai.blogspot.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22MTamim,com - Literasi Numerasi - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/150395339481667583/posts/default\x22 /\x3e\n', 'meTag': '\x3clink rel\x3d\x22me\x22 href\x3d\x22https://www.blogger.com/profile/01586233795634353557\x22 /\x3e\n', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'adsenseAutoAds': false, 'boqCommentIframeForm': true, 'loginRedirectParam': '', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/d78375fb222d99b3', 'plusOneApiSrc': 'https://apis.google.com/js/platform.js', 'disableGComments': true, 'interstitialAccepted': false, 'sharing': {'platforms': [{'name': 'Dapatkan link', 'key': 'link', 'shareMessage': 'Dapatkan link', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Bagikan ke Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'X', 'key': 'twitter', 'shareMessage': 'Bagikan ke X', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Bagikan ke Pinterest', 'target': 'pinterest'}, {'name': 'Email', 'key': 'email', 'shareMessage': 'Email', 'target': 'email'}], 'disableGooglePlus': true, 'googlePlusShareButtonWidth': 0, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27id\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': 'Baca selengkapnya', 'pageType': 'index', 'pageName': '', 'pageTitle': 'MTamim,com - Literasi Numerasi'}}, {'name': 'features', 'data': {}}, {'name': 'messages', 'data': {'edit': 'Edit', 'linkCopiedToClipboard': 'Tautan disalin ke papan klip!', 'ok': 'Oke', 'postLink': 'Tautan Pos'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': 'Khusus', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': true}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'MTamim,com - Literasi Numerasi', 'description': '', 'url': 'https://litnumai.blogspot.com/', 'type': 'feed', 'isSingleItem': false, 'isMultipleItems': true, 'isError': false, 'isPage': false, 'isPost': false, 'isHomepage': true, 'isArchive': false, 'isLabelSearch': false}}]);
+</script>
+</body>
+</html>
