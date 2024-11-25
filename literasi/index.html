@@ -271,9 +271,9 @@ apiKey = "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";
         };
         $.ajax(settings).done(function(response) {
             const message = response.choices[0].message;
-            messages.push({
-                "role": message.role,
-                "content": message.content
+            //messages.push({
+             //   "role": message.role,
+             //   "content": message.content
             });
 			const htmlText = window.markdownit().render(message.content);
 			const botMessageHtml = '<div>' + htmlText + '</div>';
