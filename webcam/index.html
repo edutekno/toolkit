@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Display</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #webcam-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        #webcam-video {
+            width: 80%; /* Ubah ukuran lebar sesuai kebutuhan */
+            height: auto; /* Tinggi akan disesuaikan otomatis */
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #title-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="webcam-container">
+        <video id="webcam-video" autoplay playsinline></video>
+        <div id="title-container">
+            Online Webcam
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk meminta akses ke webcam
+        async function startWebcam() {
+            try {
+                // Meminta izin untuk mengakses webcam
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const video = document.getElementById('webcam-video');
+                video.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        // Memulai webcam saat halaman dimuat
+        window.addEventListener('load', startWebcam);
+    </script>
+</body>
+</html>
