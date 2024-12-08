@@ -24,10 +24,13 @@
             margin: 5px;
             cursor: pointer;
         }
-        #videoPreview {
+        #videoPreview, #recordedVideo {
             margin-top: 20px;
             border: 1px solid #ccc;
             background-color: #000;
+        }
+        #micSelector {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -38,82 +41,117 @@
         <button id="stopBtn" disabled>Stop Recording</button>
         <a id="downloadLink" style="display: none;">Download Recording</a>
     </div>
+    <div id="micSelector">
+        <label for="micDropdown">Select Microphone:</label>
+        <select id="micDropdown"></select>
+    </div>
     <video id="videoPreview" width="640" height="360" autoplay muted></video>
+    <video id="recordedVideo" width="640" height="360" controls style="display: none;"></video>
 
-    <script src="script.js"></script>
-<script>
-let mediaRecorder;
-let recordedChunks = [];
-let screenStream;
-let audioStream;
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+        let screenStream;
+        let audioStream;
 
-const startBtn = document.getElementById('startBtn');
-const stopBtn = document.getElementById('stopBtn');
-const downloadLink = document.getElementById('downloadLink');
-const videoPreview = document.getElementById('videoPreview');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const downloadLink = document.getElementById('downloadLink');
+        const videoPreview = document.getElementById('videoPreview');
+        const recordedVideo = document.getElementById('recordedVideo');
+        const micDropdown = document.getElementById('micDropdown');
 
-startBtn.addEventListener('click', async () => {
-    try {
-        // Meminta izin untuk merekam layar
-        screenStream = await navigator.mediaDevices.getDisplayMedia({
-            video: true,
-            audio: false
-        });
+        // Fungsi untuk mendapatkan daftar perangkat audio
+        async function getAudioDevices() {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const audioDevices = devices.filter(device => device.kind === 'audioinput');
+            return audioDevices;
+        }
 
-        // Meminta izin untuk merekam audio dari mikrofon
-        audioStream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: false
-        });
-
-        // Menggabungkan stream layar dan audio
-        const combinedStream = new MediaStream([
-            ...screenStream.getTracks(),
-            ...audioStream.getTracks()
-        ]);
-
-        // Menampilkan preview video
-        videoPreview.srcObject = combinedStream;
-
-        // Memulai perekaman
-        mediaRecorder = new MediaRecorder(combinedStream, {
-            mimeType: 'video/webm; codecs=vp9'
-        });
-
-        mediaRecorder.ondataavailable = (event) => {
-            if (event.data.size > 0) {
-                recordedChunks.push(event.data);
-            }
-        };
-
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, {
-                type: 'video/mp4'
+        // Fungsi untuk mengisi dropdown dengan perangkat audio yang tersedia
+        async function populateMicDropdown() {
+            const audioDevices = await getAudioDevices();
+            audioDevices.forEach(device => {
+                const option = document.createElement('option');
+                option.value = device.deviceId;
+                option.text = device.label || `Microphone ${micDropdown.length + 1}`;
+                micDropdown.appendChild(option);
             });
-            const url = URL.createObjectURL(blob);
-            downloadLink.href = url;
-            downloadLink.download = 'screen-recording.mp4';
-            downloadLink.style.display = 'inline';
+        }
 
-            // Membersihkan stream
-            screenStream.getTracks().forEach(track => track.stop());
-            audioStream.getTracks().forEach(track => track.stop());
-        };
+        // Memanggil fungsi untuk mengisi dropdown saat halaman dimuat
+        populateMicDropdown();
 
-        mediaRecorder.start();
+        startBtn.addEventListener('click', async () => {
+            try {
+                // Meminta izin untuk merekam layar
+                screenStream = await navigator.mediaDevices.getDisplayMedia({
+                    video: true,
+                    audio: false
+                });
 
-        startBtn.disabled = true;
-        stopBtn.disabled = false;
-    } catch (error) {
-        console.error('Error accessing media devices.', error);
-    }
-});
+                // Meminta izin untuk merekam audio dari mikrofon yang dipilih
+                const selectedMicId = micDropdown.value;
+                audioStream = await navigator.mediaDevices.getUserMedia({
+                    audio: { deviceId: selectedMicId ? { exact: selectedMicId } : undefined },
+                    video: false
+                });
 
-stopBtn.addEventListener('click', () => {
-    mediaRecorder.stop();
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-});
-</script>
+                // Menggabungkan stream layar dan audio
+                const combinedStream = new MediaStream([
+                    ...screenStream.getTracks(),
+                    ...audioStream.getTracks()
+                ]);
+
+                // Menampilkan preview video
+                videoPreview.srcObject = combinedStream;
+
+                // Memulai perekaman
+                mediaRecorder = new MediaRecorder(combinedStream, {
+                    mimeType: 'video/webm; codecs=vp9'
+                });
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, {
+                        type: 'video/mp4'
+                    });
+                    const url = URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = 'screen-recording.mp4';
+                    downloadLink.style.display = 'inline';
+
+                    // Menampilkan hasil rekaman
+                    recordedVideo.src = url;
+                    recordedVideo.style.display = 'block';
+
+                    // Menyembunyikan preview video
+                    videoPreview.style.display = 'none';
+
+                    // Membersihkan stream
+                    screenStream.getTracks().forEach(track => track.stop());
+                    audioStream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            } catch (error) {
+                console.error('Error accessing media devices.', error);
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            mediaRecorder.stop();
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        });
+    </script>
 </body>
 </html>
