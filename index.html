@@ -321,6 +321,8 @@ th{
             <button id="send-button" onclick="sendMessage()">
                 <i class="fas fa-paper-plane"></i> Kirim
             </button>
+                            <div id="loadinggif" class="centered" style="display:none;"><br><img src="https://rumahguru.org/img/loadingtech.gif" alt="LOADING" ><br></div>
+
         </div>
         <div id="main-window">
             <!-- Pesan akan muncul di sini -->
@@ -399,7 +401,7 @@ th{
         }
 
         function showLoading() {
-            
+            document.getElementById('loadinggif').style.display = 'block';
             disableButton();
              var button = document.getElementById('send-button');
     button.style.visibility = 'hidden';  // Hides the button but keeps the space
@@ -416,6 +418,7 @@ th{
         }
 
         function hideLoading() {
+                document.getElementById('loadinggif').style.display = 'none';
             enableButton();
                         var button = document.getElementById('send-button');
     button.style.visibility = 'visible';  // Hides the button but keeps the space
