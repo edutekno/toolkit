@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Toolkit</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Markdown-it Library -->
+    <script src="https://cdn.staticfile.org/markdown-it/13.0.1/markdown-it.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #f4f4f4;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--secondary-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: color var(--transition-speed);
+        }
+
+        .navbar-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sidebar and Main Window */
+        #sidebar {
+            width: 300px;
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #sidebar textarea {
+            //flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            resize: none;
+            transition: all var(--transition-speed);
+            height: 150px; /* Fixed height untuk 10 baris */
+            line-height: 1.5; /* Jarak antar baris */
+        }
+
+        #sidebar textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        #sidebar button {
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #sidebar button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #main-window {
+            flex-grow: 1;
+            background-color: #f9f9f9;
+            padding: 15px;
+            overflow-y: auto; /* Scrollable */
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 15px; /* Padding lebih besar untuk pesan bot */
+            border-radius: 8px;
+            max-width: 98%;
+            animation: fadeIn 0.3s ease-in-out;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #fff;
+            color: var(--text-primary);
+            margin-right: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd; /* Border untuk pesan bot */
+        }
+
+        .close-button {
+            background: #ff4444; /* Warna merah */
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px; /* Ukuran font */
+            padding: 8px 12px; /* Padding lebih besar */
+            border-radius: 8px; /* Border radius */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Efek 3D */
+            transition: all var(--transition-speed);
+            margin-top: 10px; /* Jarak dari pesan */
+            display: inline-block; /* Agar tombol tidak memenuhi lebar */
+        }
+
+        .close-button:hover {
+            background: #cc0000; /* Warna merah lebih gelap saat hover */
+            transform: scale(1.05); /* Efek zoom saat hover */
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Padding lebih besar */
+        }
+
+        .loading span {
+            width: 16px; /* Ukuran lebih besar */
+            height: 16px; /* Ukuran lebih besar */
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 5px; /* Margin lebih besar */
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .loading span:nth-child(1) { animation-delay: -0.32s; }
+        .loading span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Custom Scrollbar */
+        #main-window::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #main-window::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #main-window::-webkit-scrollbar-thumb {
+            background: #c5c5c5;
+            border-radius: 3px;
+        }
+
+        #main-window::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            #sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                padding: 10px;
+            }
+
+            #main-window {
+                padding: 10px;
+            }
+
+            .message {
+                padding: 10px;
+            }
+
+            .navbar-brand {
+                font-size: 20px;
+            }
+
+            .navbar-brand i {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .main-content {
+                display: flex;
+                flex-grow: 1;
+            }
+
+            #sidebar {
+                width: 300px;
+            }
+
+            #main-window {
+                flex-grow: 1;
+            }
+        }
+        
+        table, td {
+border: 1px solid;
+border-color: #dcf0fa;
+}
+
+th{
+  
+  background: #ccccff;
+}
+        
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-robot"></i> <!-- Ikon chatbot -->
+            AI Institute
+        </div>
+        <div class="navbar-menu">
+            <a href="#"><i class="fas fa-home"></i> Home</a>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div id="sidebar">
+            <select class='form-control text-dark' id='komponen' name='komponen'>
+<option value='Tujuan Pembelajaran dan indikator ketuntasan. Buat dalam tabel dengan setiap tujuan pembelajaran terdiri dari 1 atau lebih indikator.'>Tujuan Pembelajaran</option>
+<option value='Tujuan Pembelajaran yang menggabungkan 2 dimensi (tuliskan tujuan pembelajaran dalam tabel dengan kombinasi dimensi pengetahuan (4 baris tabel: faktual-konseptual-prosedural-metakognitif) dan dimensi kognitif (6 kolom tabel: mengingat, memahami, mengaplikasi, menganalisis, mengevaluasi, kreasi)).'>Tujuan Pembelajaran (2 Dimensi)</option>
+
+<option value='Daftar Pertanyaan pemantik (guiding questions) (judul gunakan heading H2 dan tanpa subheading lain) yang memandu mengantarkan ke materi pembelajaran '>Pertanyaan Pemantik</option>
+<option value=' Daftar poin motivasi Mengapa  penting dan perlu bagi siswa untuk mempelajari materi ini (jika perlu, berikan contoh serta manfaat di kehidupan nyata serta karir masa depan) '>Bahan Motivasi Belajar Siswa</option>
+<option value='alternatif langkah (step-by-step) strategi Belajar dari awal ketika siswa belum paham materi hingga akhirnya siswa paham konsep dan penerapannya. berikan cara dan trik yang memudahkan siswa belajar (gunakan peraga jika perlu). fokuskan pada langkah didaktik-pedagogi dan spesifik pada materi yang disertai contoh-contoh yang memudahkan pemahaman dan gunakan prinsip yang sesuai dengan cara otak/kognisi bekerja. Jelaskan rasional/argumen mengapa guru perlu melakukan langkah tersebut misalnya untuk mengatasi miskonsepsi, kesulitan pemahaman materi, dan hambatan belajar terkait topik materi. '>Ide Aktivitas Untuk Materi Sulit</option>
+
+<option value=' saran profesional tentang ide pembelajaran yang menerapkan pendekatan pembelajaran mendalam yang melibatkan pembelajaran (1) mindful-reflektif learning diawali penjelasan singkat yg relevan dengan topik materi (Peserta didik memahami tujuan pembelajaran dan termotivasi secara intrinsik untuk belajar dengan memberikan 3 pemantik dikaitkan topik materi di awal pembelajaran (serta melibatkan aktivasi pengetahuan awal dan pengetahuan prasyarat). Guru memberrikan 3+ buah motivasi tentang pentingnya belajar topik materi. Peserta didik aktif meregulasi diri dalam belajar, merencanakan, melaksanakan, dan mengevaluasi secara reflektif cara belajar mereka dengan memberikan 3+ contoh bagaimana melakukan refleksi sesuai topik materi yang dipelajari.)(sebagai ahli, berikan contoh guru mempraktikkan sesuai topik materi ini shg guru dapat terinspirasi, berikan contoh contoh praktis yang mudah dipahami) , (2) meaningful learning (Peserta didik menerapkan pengetahuan mrngenai materi pelajaran dalam situasi nyata dengan 3+ contoh detail sesuai materi, Pastikan proses belajar berorientasi pada kemampuan mengaplikasikan pengetahuan (learning tansfer), pemahaman siswa secara mendalam bukan hanya menghafal informasi, juga melibatkan aktivasi pengetahuan awal). Berikan contoh aplikatif sesuai topik materi, berikan ide contoh pembelajaran problem/project based learning sesuai topik materi. dan (3) joyful learning (suasana belajar yang positif, menantang, menyenangkan, dan memotivasi, terlibat secara kognitif dan emosional). Jelaskan masing-masing poin tsb dikaitkan dengan selalu dikaitkan dengan topik materi '>Aktivitas Deep Learning</option>
+<option value=' saran profesional tentang ide pembelajaran yang menerapkan pendekatan pembelajaran mendalam yang melibatkan pembelajaran mindful-reflektif learning (Peserta didik memahami tujuan pembelajaran dan termotivasi secara intrinsik untuk belajar. Peserta didik aktif meregulasi diri dalam belajar, merencanakan, melaksanakan, dan mengevaluasi reflektif cara belajar mereka.) , meaningful (Peserta didik menerapkan pengetahuan dalam situasi nyata,Proses belajar berorientasi pada kemampuan mengaplikasikan pengetahuan (learning tansfer), pemahaman mendalam bukan hanya menghafal informasi, melibatkan aktivasi pengetahuan awal), dan joyful (suasana belajar yang positif, menantang, menyenangkan, dan memotivasi, terlibat secara kognitif dan emosional). Jelaskan masing-masing poin tsb dalam tabel dengan masing masing berisi tujuan pembelajaran, penjelasan, tambahkan aktivitas pembelajaran yang membahas topik materi dan asesmen yang sesuai di bawah tabel. gunakan strategi dan alat/media pembelajaran yang bervariasi (dari yang sederhana sampai teknologi canggih) topik materinya '>Ide Aktivitas Deep Learning</option>
+
+<option value='Ide pembelajaran berdiferensiasi (differentiated instruction) untuk kelompok siswa yang memiliki kemampuan dan karakteristik yang berbeda beserta tugas yang sesuai. Tulis dalam tabel.'>Ide Pembelajaran Berdiferensiasi (Kemampuan Siswa)</option>
+<option value='Ide pembelajaran berdiferensiasi (differentiated instruction) untuk kelompok siswa dalam kategori diferensiasi konten, proses dan produk. Tulis dalam tabel.'>Ide Pembelajaran Berdiferensiasi (Proses-Konten-Produk)</option>
+<option value='Ide pembelajaran berbasis problem-solving melibatkan investigasi dan penerapan konsep. Berikan statemen problem/masalah yang menantang dan menarik dengan bahasa yang mudah dipahami.'>Ide Pembelajaran Berbasis Pemecahan-Masalah (PBL)</option>
+<option value='Ide pembelajaran berbasis inquiry-based learning. Berikan langkah-langkah dengan detail.'>Ide Pembelajaran Berbasis Inkuiri</option>
+<option value='Ide pembelajaran berbasis project based learning dengan penerapan konsep dari mata pelajaran dan gunakan sintaks PjBL. tuliskan tujuan pembelajaran dan detail project yang harus dikerjakan. Tuliskan relevansi projek tsb dengan 4 kriteria kunci PjBL (dalam bentuk tabel 2 kolom 4 baris) berisi statemen pertanyaan penuntun (guiding question) yang jelas, konten materi pelajaran yang relevan, produk autentik yang dihasilkan dan kerja kolaboratif siswa. berikan arahan langkah yang harus dilakukan siswa. di akhir, berikan  alternatif langkah project yang mungkin dilakukan siswa sesuai sintaks PjBL (tuliskan dalam tabel). Tuliskan alternatif solusi jenis projek yang dapat dilakukan siswa, jika siswa tidak dapat menemukan idenya sendiri. '>Ide Pembelajaran Berbasis Proyek (PjBL)</option>
+
+
+
+<option value=' 5 (lima) buah soal pilihan ganda dan jawabannya dengan menerapkan variasi level kognitif tinggi (high order) pada taksonomi Bloom (tuliskan soal tanpa format heading dan berikan kunci jawaban.). tulis 5 soal dengan struktur format penulisan seperti berikut (gunakan format penulisannya, gantilah isi dari placeholder []):[1. Tulis soal disini]\na) [opsi Jawaban  a]\nb) [Jawaban pilihan b]\nc) [Jawaban pilihan c]\nd) [Jawaban pilihan d]\n\n[2. Tulis soal disini]\na) [Jawaban pilihan a]\nb) [Jawaban pilihan b]\nc) [Jawaban pilihan c]\nd) [Jawaban pilihan d]\n\n[3. Tulis soal disini]\na) [Jawaban pilihan a]\nb) [Jawaban pilihan b]\nc) [Jawaban pilihan c]\nd) [Jawaban pilihan d]\n\nKunci:\n[Jawaban kunci 1]\n[Jawaban kunci 2]\n[Jawaban kunci 3]'>Soal Pilihan Ganda</option>
+<option value=' Soal esai untuk dikerjakan siswa dengan menerapkan level kognitif higher order thinking (tuliskan soal tanpa format heading dan tanpa keterangan level kognitif)'>Soal Esai</option>
+<option value=' Soal cerita (word problems) untuk dikerjakan siswa dengan menerapkan level kognitif higher order thinking (tuliskan soal tanpa format heading)'>Soal Cerita</option>
+<option value=' Soal mengisi fill the blank'>Soal Isian</option>
+
+            </select>
+            <textarea id="user-input" placeholder="Tulis topik materi dan jenjang..." rows="10"></textarea>
+            <button id="send-button" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i> Kirim
+            </button>
+        </div>
+        <div id="main-window">
+            <!-- Pesan akan muncul di sini -->
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "sk_6J3sapEDoFuphv2McesBrXsacbjlVMoqJfc6bYP2VdmoCfp8";
+        const chatbotName = "myChat";
+        const username = "tamimnasa2";
+        let conversationId = null;
+
+        const mainWindow = document.getElementById('main-window');
+        var userInput = document.getElementById('user-input');
+        var sel = document.getElementById("komponen");
+
+        // Inisialisasi markdown-it
+        const md = window.markdownit();
+
+        // Tampilkan pesan awal saat halaman dimuat = inactive
+        window.onload = function () {
+           // appendMessage('bot', 'Halo! Ada yang bisa saya bantu?');
+        };
+
+        function sendMessage() {
+            const userMessage = "Tuliskan "+sel.value.trim()+" . Topik materi : " + userInput.value.trim();
+            if (userMessage) {
+                //appendMessage('user', userMessage);
+                showLoading();
+                sendMessageToBot(userMessage);
+                //userInput.value = '';
+                // Scroll to the bottom of the page
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth' // Optional: Add smooth scrolling effect
+                });
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function appendMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', `${sender}-message`);
+
+            // Render Markdown ke HTML jika pesan dari bot
+            if (sender === 'bot') {
+                messageElement.innerHTML = md.render(message); // Render Markdown ke HTML
+            } else {
+                messageElement.textContent = message; // Render teks biasa untuk pesan pengguna
+            }
+
+            // Tambahkan tombol close untuk pesan bot
+            if (sender === 'bot') {
+                const closeButton = document.createElement('button');
+                closeButton.classList.add('close-button');
+                closeButton.innerHTML = 'Tutup'; // Teks pada tombol
+                closeButton.onclick = function() {
+                    messageElement.remove();
+                };
+                messageElement.appendChild(closeButton);
+            }
+
+            mainWindow.appendChild(messageElement);
+            mainWindow.scrollTop = mainWindow.scrollHeight; // Auto-scroll ke bawah
+            // Scroll to the bottom of the page
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth' // Optional: Add smooth scrolling effect
+            });
+        }
+
+        function showLoading() {
+            
+            disableButton();
+             var button = document.getElementById('send-button');
+    button.style.visibility = 'hidden';  // Hides the button but keeps the space
+
+            
+            const loadingElement = document.createElement('div');
+            loadingElement.classList.add('loading');
+            loadingElement.innerHTML = `
+                <span></span>
+                <span></span>
+                <span></span>
+            `;
+            mainWindow.appendChild(loadingElement);
+        }
+
+        function hideLoading() {
+            enableButton();
+                        var button = document.getElementById('send-button');
+    button.style.visibility = 'visible';  // Hides the button but keeps the space
+            const loadingElement = document.querySelector('.loading');
+            if (loadingElement) {
+                loadingElement.remove();
+            }
+        }
+
+        function sendMessageToBot(input) {
+            const url = "https://api.vectorshift.ai/api/chatbots/run";
+            const headers = {
+                "Api-Key": apiKey,
+                "Content-Type": "application/json",
+            };
+            const body = {
+                input: input,
+                chatbot_name: chatbotName,
+                username: username,
+                conversation_id: conversationId
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading(); // Sembunyikan loading setelah respons diterima
+                if (data && data.output) {
+                    appendMessage('bot', data.output); // Render Markdown ke HTML
+                    conversationId = data.conversation_id;
+                }
+            })
+            .catch(error => {
+                hideLoading(); // Sembunyikan loading jika terjadi error
+                console.error('Error:', error);
+            });
+        }
+
+        // Tambahkan event listener untuk input field
+        userInput.addEventListener('keypress', handleKeyPress);
+        
+        // Function to disable the button
+function disableButton() {
+    var button = document.getElementById('send-button');
+    button.disabled = true;  // Disables the button
+}
+
+// Function to enable the button
+function enableButton() {
+    var button = document.getElementById('send-button');
+    button.disabled = false;  // Enables the button
+}
+        
+        
+        
+    </script>
+</body>
+</html>
