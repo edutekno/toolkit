@@ -167,7 +167,8 @@
     $.ajax(settings).done(function(response) {
         var message = response.text;  // Changed from response.choices[0].message.content to response.text
         if (simplemde.isPreviewActive() == true) simplemde.togglePreview();
-        simplemde.value(message);
+       txt=simplemde.value();
+        simplemde.value(txt+message);
         if (simplemde.isPreviewActive() == false) simplemde.togglePreview();
 
         document.getElementById("loading").style.display = "none";
@@ -178,6 +179,7 @@
 }
 
         function clearEditor() {
+           if (simplemde.isPreviewActive() == true) simplemde.togglePreview();
             simplemde.value("");
         }
     </script>
