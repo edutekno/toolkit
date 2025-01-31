@@ -155,16 +155,16 @@
         });
 
         function fetchMessages(message) {
-            var apiKey = "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";
+            var apiKey = "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";
             var settings = {
-                url: "https://api.groq.com/openai/v1/chat/completions",
+                url: "https://openrouter.ai/api/v1/chat/completions",
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + apiKey,
                     "Content-Type": "application/json"
                 },
                 data: JSON.stringify({
-                    model: "gemma2-9b-it",
+                    model: "meta-llama/llama-3-70b",
                     messages: [{ "role": "user", "content": message }]
                 })
             };
