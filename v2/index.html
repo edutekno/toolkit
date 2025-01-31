@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Guru Toolkits</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/markdown-it/13.0.1/markdown-it.min.js"></script>
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            font-size: 14px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1, h2 {
+            color: darkblue;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: DodgerBlue;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .container-fluid {
+            padding: 20px;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .chat-box {
+            height: 67vh;
+            overflow-y: scroll;
+            display: none;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 70%;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        .left-side {
+            background-color: lightgray;
+            float: center;
+            text-align: left;
+        }
+        .right-side {
+            background-color: lightgreen;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Minimalis -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-grey" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">AI Institute</a>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <h3>AI Guru Toolkits</h3>
+                <select class="form-control" id="komponen">
+                    <option value="Tujuan Pembelajaran">Tujuan Pembelajaran</option>
+                    <option value="Uraian Materi">Uraian Materi</option>
+                    <option value="Materi Prasyarat">Materi Prasyarat</option>
+                    <option value="Pertanyaan Pemantik">Pertanyaan Pemantik</option>
+                    <option value="Ide Aktivitas Pembelajaran">Ide Aktivitas Pembelajaran</option>
+                </select>
+                <br>
+                <textarea class="form-control" id="userInput" rows="3" placeholder="Topik materi"></textarea>
+                <br>
+                <button class="btn btn-warning btn-block" id="sendButton">SUBMIT</button>
+                <br>
+                <div id="loading" style="display:none;"><h1>LOADING...</h1></div>
+            </div>
+            <div class="col-md-9">
+                <textarea id="txtresp" rows="15" style="width: 100%; height: 500px;"></textarea>
+                <br>
+                <button onclick="clearEditor()" class="btn btn-secondary">Hapus Teks</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("txtresp"), spellChecker: false });
+
+        document.getElementById("sendButton").addEventListener("click", function() {
+            var komponen = document.getElementById("komponen").value;
+            var userInput = document.getElementById("userInput").value;
+            var message = "Tuliskan " + komponen + " " + userInput + " (Jawablah dengan Bahasa Indonesia!)";
+
+            if (message) {
+                document.getElementById("loading").style.display = "block";
+                fetchMessages(message);
+            }
+        });
+
+        function fetchMessages(message) {
+            var apiKey = "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";
+            var settings = {
+                url: "https://api.groq.com/openai/v1/chat/completions",
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + apiKey,
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify({
+                    model: "gemma2-9b-it",
+                    messages: [{ "role": "user", "content": message }]
+                })
+            };
+
+            $.ajax(settings).done(function(response) {
+                var message = response.choices[0].message.content;
+                if (simplemde.isPreviewActive() == true) simplemde.togglePreview();
+                simplemde.value(message);
+                if (simplemde.isPreviewActive() == false) simplemde.togglePreview();
+  
+                document.getElementById("loading").style.display = "none";
+            }).fail(function() {
+                alert("Error loading...");
+                document.getElementById("loading").style.display = "none";
+            });
+        }
+
+        function clearEditor() {
+            simplemde.value("");
+        }
+    </script>
+</body>
+</html>
