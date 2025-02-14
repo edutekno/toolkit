@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenFood</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.2/dist/markdown-it.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ... (Semua CSS dari kode 2) ... */
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">GenFood</div>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul>
+                <li><a href="http://aiinstitute.id">Aplikasi AI</a></li>
+                <li><a href="http://aiinstitute.id">Tentang Kami</a></li>
+            </ul>
+        </nav>
+        <img src="http://aiinstitute.my.id/iaii.png">
+    </header>
+    <main>
+        <section class="hero">
+            <h1>GenFood</h1>
+            <p>Aplikasi generator resep otomatis. Cukup ketik nama makanan, ide resep, bahan makanan atau jadwal, dan AI akan menghasilkan resepnya secara instan!</p>
+            <input type="text" id="question" placeholder="Tulis disini..." class="search-input">
+            <button class="generate-btn" onclick="askQuestion()">Buat Resep</button>
+            <div id="loading">
+                <h2>Memuat...</h2>
+            </div>
+        </section>
+        <div class="description-box" id="response" style="display:none;">
+            </div>
+        <button class="sign-up-btn">Jelajahi aplikasi AI lain »</button>
+    </main>
+    <footer>
+        <p><img src="http://aiinstitute.my.id/iaii.png"></p>
+        <p>&copy; 2025 AI Institute</p>
+    </footer>
+
+    <script>
+        const md = window.markdownit();
+        async function askQuestion() {
+            const question = "PROMPT: " + document.getElementById('question').value + " INSTRUKSI: Anda akan membuatkan resep masakan (atau minuman) dengan nama makanan/minuman, bahan atau kriteria kriteria. " +
+                "(Jika bahan dan kriteria belum jelas, buatkan resep yang terbaik yang anda tahu.). langsung jawab diawali dengan nama resep tanpa intro. kemudian tuliskan resep lengkap dengan detail." +
+                " Di akhir berikan tips dan penjelasan singkat makanan ini (misal tentang kebaikan/manfaatnya, tradisi/sejarahnya dll)." +
+                " Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar format markdown dalam respon, contoh !(https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura) ).";
+
+            // Tampilkan pesan loading
+            const loadingMessage = document.getElementById('loading');
+            const responseDiv = document.getElementById('response');
+            loadingMessage.style.display = 'block'; // Tampilkan pesan loading
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = ''; // Bersihkan respons sebelumnya
+
+            try {
+                const response = await fetch('https://rumahguru.org/api/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: question,
+                        api: "sk-097866776777575t67cc"
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+
+                if (data.text) {
+                    const parsedHtml = md.render(data.text);
+                    responseDiv.innerHTML = `${parsedHtml}`;
+                } else {
+                    responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            } finally {
+                // Sembunyikan pesan loading setelah selesai
+                loadingMessage.style.display = 'none';
+            }
+        }
+
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+        }
+    </script>
+
+</body>
+
+</html>
