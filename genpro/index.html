@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenPro</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.2/dist/markdown-it.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #6a5acd; /* Warna utama */
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #4b0082; /* Warna gelap untuk navbar */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        nav li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .premium {
+            color: #ffcc00;
+        }
+        .business {
+            color: #ffa500;
+        }
+        .login-btn {
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #6a5acd; /* Warna utama */
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            padding: 0 150px;
+            font-weight: 400;
+        }
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .generate-btn {
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .description-box {
+            background-color: white;
+            color: #1e1e1e; /* Warna gelap untuk teks */
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .description-box h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .description-box p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .description-box img {
+            width: 90%;
+            height: 90%;
+            align: center;
+        }
+        .sign-up-btn {
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            font-weight: bold;
+        }
+        #loading {
+            display: none;
+            font-style: italic;
+            color: #ffcc00;
+            text-align: center;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                display: none;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+            .search-input {
+                width: 90%;
+            }
+            .description-box h2 {
+                font-size: 28px;
+            }
+            .description-box p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GenPro</div>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul>
+                <li><a href="http://aiinstitute.id">Aplikasi AI</a></li>
+                <li><a href="http://aiinstitute.id">Tentang Kami</a></li>
+            </ul>
+        </nav>
+        <img src="http://aiinstitute.my.id/iaiis.png">
+    </header>
+    <main>
+        <section class="hero">
+            <h1>GenPro</h1>
+            <p>Aplikasi pembuat deskriosi produk otomatis. Cukup ketik nama produk dan informasi singkatnya dan AI akan menghasilkan deskripsi yang menarik dan mencuri perhatian konsumen!</p>
+            <input type="text" id="question" placeholder="Tulis disini..." class="search-input">
+            <button class="generate-btn" onclick="askQuestion()">Buat Deskripsi</button>
+            <div id="loading"><h2>Memuat...</h2></div>
+        </section>
+        <div class="description-box" id="response" style="display:none;">
+            <!-- Respons akan ditampilkan di sini -->
+        </div>
+        <button class="sign-up-btn">Jelajahi aplikasi AI lain »</button>
+    </main>
+    <footer>
+        <p><img src="http://aiinstitute.my.id/iaii.png"></p>
+        <p>&copy; 2025 AI Institute</p>
+    </footer>
+
+    <script>
+        const md = window.markdownit();
+
+        async function askQuestion() {
+            const promptText = `Buatlah 5 deskripsi produk dengan pendekatan yang berbeda-beda. Pastikan setiap deskripsi memiliki gaya dan fokus yang unik dengan headline menarik:
+            1. Deskripsi Berbasis Manfaat: Soroti manfaat utama produk bagi pelanggan. Gunakan bahasa persuasif dan fokus pada bagaimana produk ini dapat memecahkan masalah atau meningkatkan kehidupan pengguna. Sertakan 3 poin utama tentang apa yang membuat produk ini unik dibandingkan pesaingnya.
+            2. Deskripsi Emosional: Hubungkan pelanggan secara emosional dengan produk. Soroti bagaimana produk ini dapat meningkatkan kebahagiaan, kepercayaan diri, atau kualitas hidup mereka. Gunakan bahasa yang inspiratif dan buat pembaca merasa bahwa produk ini adalah jawaban atas impian mereka.
+            3. Deskripsi Keunikan Produk: Fokus pada fitur-fitur unik yang tidak dimiliki oleh produk lain di pasaran. Gunakan bahasa yang kreatif dan buat pembaca merasa bahwa mereka akan melewatkan sesuatu yang istimewa jika tidak membeli produk ini.
+            4. Deskripsi Storytelling: Gunakan pendekatan storytelling untuk menjelaskan bagaimana produk ini dapat menjadi bagian dari kehidupan sehari-hari pelanggan. Ceritakan bagaimana produk ini mengubah pengalaman mereka menjadi lebih baik.
+            5. Deskripsi SEO-Friendly: Tulis deskripsi yang dioptimalkan untuk SEO. Pastikan mencakup kata kunci seperti '{Kata Kunci Utama}' dan '{Kata Kunci Terkait}', serta sertakan manfaat produk, fitur utama, dan ajakan bertindak (CTA) yang jelas.
+            Pastikan setiap deskripsi memiliki tone yang sesuai dengan pendekatannya dan tetap relevan dengan target audiens.`;
+
+            const question = "NAMA PRODUK: " + document.getElementById('question').value + promptText
+                + " Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen (gunakan embed gambar format MARKDOWN dalam respon (diawali exclamation mark dan kurung buka tanpa spasi), contoh: !(https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women) ).";
+
+            // Tampilkan pesan loading
+            const loadingMessage = document.getElementById('loading');
+            const responseDiv = document.getElementById('response');
+            loadingMessage.style.display = 'block'; // Tampilkan pesan loading
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = ''; // Bersihkan respons sebelumnya
+
+            try {
+                const response = await fetch('https://rumahguru.org/api/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt: question, api: "sk-097866776777575t67cc" })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                if (data.text) {
+                    const parsedHtml = md.render(cleanEx(data.text));
+                    const finalHtml = mdImage(parsedHtml);
+                    responseDiv.innerHTML = finalHtml;
+                    console.log(parsedHtml);
+                } else {
+                    responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            } finally {
+                // Sembunyikan pesan loading setelah selesai
+                loadingMessage.style.display = 'none';
+            }
+        }
+
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+        }
+
+        function mdImage(markdown) {
+            // Menggunakan regex untuk mencocokkan pola Markdown gambar: ![alt text](url)
+            const regex = /!\(([^)]+)\)/g;
+            // Mengganti setiap kecocokan dengan tag <img> HTML
+            const html = markdown.replace(regex, (match, url) => {
+                return `<img src="${url}" alt="">`;
+            });
+            return html;
+        }
+
+        function cleanEx(inputString) {
+            // Regex untuk mencocokkan "! (" dan menggantinya dengan "!("
+            const regex = /!\s*\(/g;
+            // Mengganti semua kecocokan dengan "!("
+            const result = inputString.replace(regex, '!(');
+            return result;
+        }
+    </script>
+</body>
+</html>
