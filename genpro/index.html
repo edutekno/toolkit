@@ -260,7 +260,8 @@
                 if (data.text) {
                     responseDiv.style.display = 'block';
                     const parsedHtml = md.render(cleanEx(data.text));
-                    const finalHtml = mdImage(parsedHtml);
+                     finalHtml = convertUrlToImageTag(mdImage(parsedHtml));
+                    
                     responseDiv.innerHTML = finalHtml;
                     console.log(parsedHtml);
                 } else {
@@ -296,6 +297,20 @@
             const result = inputString.replace(regex, '!(');
             return result;
         }
+
+       function convertUrlToImageTag(inputString) {
+    // Regex untuk mencocokkan URL yang diawali dengan https://rumahguru.org/api/imagen.php?keyword=
+    const urlRegex = /https:\/\/rumahguru\.org\/api\/imagen\.php\?keyword=[^\s]+?(?=\s|\.|,|!|\?|$)/gi;
+
+    // Mengganti setiap URL yang cocok dengan tag <img>
+    const result = inputString.replace(urlRegex, (url) => {
+        return `<img src="${url}" alt="image" />`;
+    });
+
+    return result;
+}
+
+        
     </script>
 </body>
 </html>
