@@ -260,7 +260,7 @@
                 if (data.text) {
                     responseDiv.style.display = 'block';
                     const parsedHtml = md.render(cleanEx(data.text));
-                     finalHtml = convertUrlToImageTag(mdImage(parsedHtml));
+                     finalHtml = convertUrlToImageTag((parsedHtml));
                     
                     responseDiv.innerHTML = finalHtml;
                     console.log(parsedHtml);
