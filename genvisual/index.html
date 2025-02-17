@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favai.png">
+    <title>GenVisual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #6a5acd; /* Warna utama */
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #4b0082; /* Warna gelap untuk navbar */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        nav li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .premium {
+            color: #ffcc00;
+        }
+        .business {
+            color: #ffa500;
+        }
+        .login-btn {
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .hero {
+            text-align: center;
+            //padding: 100px 20px;
+            background-color: #6a5acd; /* Warna utama */
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            padding: 0 50px;
+            font-weight: 400;
+        }
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .generate-btn {
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .description-box {
+            background-color: white;
+            color: #1e1e1e; /* Warna gelap untuk teks */
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .description-box h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .description-box p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .description-box img {
+            width: 90%;
+            height: 90%;
+            align: center;
+        }
+        .sign-up-btn {
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            font-weight: bold;
+        }
+        #loading {
+            display: none;
+            font-style: italic;
+            color: #ffcc00;
+            text-align: center;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                display: none;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+            .search-input {
+                width: 90%;
+            }
+            .description-box h2 {
+                font-size: 28px;
+            }
+            .description-box p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GenVisual</div>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul>
+                <li><a href="http://aiinstitute.id">Aplikasi AI</a></li>
+                <li><a href="http://aiinstitute.id">Tentang Kami</a></li>
+            </ul>
+        </nav>
+        <img src="http://aiinstitute.my.id/iaiis.png">
+    </header>
+    <main>
+        <section class="hero">
+            <h1>GenVisual</h1>
+            <p>Generator gambar berbasis AI. Cukup ketik deskripsi gambar yang Anda inginkan, dan AI akan menghasilkan gambar yang sesuai!</p>
+            <textarea id="user-input" placeholder="Tulis deskripsi gambar di sini..." class="search-input"></textarea>
+            <br>
+            <button class="generate-btn" onclick="generateImage()">Buat Gambar</button>
+            <div id="loading"><h2>Memuat...</h2></div>
+        </section>
+        <div class="description-box" id="response" style="display:none;">
+            <!-- Respons gambar akan ditampilkan di sini -->
+        </div>
+        <button class="sign-up-btn">Jelajahi aplikasi AI lain »</button>
+    </main>
+    <footer>
+        <p><img src="http://aiinstitute.my.id/iaii.png"></p>
+        <p>&copy; 2025 AI Institute</p>
+    </footer>
+
+    <script>
+        async function generateImage() {
+            const userText = document.getElementById('user-input').value.trim();
+            if (!userText) {
+                alert("Silakan masukkan deskripsi gambar!");
+                return;
+            }
+
+            const loadingMessage = document.getElementById('loading');
+            const responseDiv = document.getElementById('response');
+            loadingMessage.style.display = 'block'; // Tampilkan pesan loading
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = '<img src="http://rumahguru.org/img/loadingtech.gif" style="width: 100%; border-radius: 10px;">'; // Bersihkan respons sebelumnya
+            showLoading();
+            try {
+                // Generate gambar menggunakan API Pollinations
+                const keywords = encodeURIComponent(userText);
+                const imageUrl = `https://image.pollinations.ai/prompt/${keywords}?nologo=true&height=480&width=640`;
+
+                // Tampilkan gambar di dalam responseDiv
+                responseDiv.innerHTML = `<img src="${imageUrl}" alt="Generated Image" style="width: 100%; border-radius: 10px;">`;
+            } catch (error) {
+                responseDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            } finally {
+                //loadingMessage.style.display = 'none'; // Sembunyikan pesan loading
+            }
+        }
+
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+        }
+        
+        function showLoading() {
+            const loadingElement = document.getElementById('loading');
+
+            // Tampilkan elemen loading
+            loadingElement.style.display = 'block';
+
+            // Sembunyikan elemen loading setelah 15 detik
+            setTimeout(() => {
+                loadingElement.style.display = 'none';
+            }, 15000); // 15000 ms = 15 detik
+            //window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
+        }
+
+        
+    </script>
+</body>
+</html>
