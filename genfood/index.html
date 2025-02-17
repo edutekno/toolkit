@@ -65,7 +65,7 @@
 
         .hero {
             text-align: center;
-            //padding: 100px 20px;
+            padding: 100px 20px;
             background-color: #9a4885; /* Warna utama */
         }
 
@@ -78,7 +78,7 @@
         .hero p {
             font-size: 20px;
             margin-bottom: 30px;
-            //padding: 0 150px;
+            padding: 0 150px;
             font-weight: 400;
         }
 
@@ -230,15 +230,15 @@
                 <li><a href="http://aiinstitute.id" >Tentang Kami</a></li>
             </ul>
         </nav>
-        <!-- <button class="login-btn">Masuk / Daftar</button> --> <a href="http://aiinstitute.id"><img src="http://aiinstitute.my.id/iaiis.png" ></a>
+        <!-- <button class="login-btn">Masuk / Daftar</button> --> <img src="http://aiinstitute.my.id/iaii.png" >
     </header>
     <main>
         <section class="hero">
             <h1>GenFood</h1>
-            <p>Aplikasi generator resep otomatis. Cukup ketik nama makanan, ide resep, atau bahan utama, dan AI akan menghasilkan resepnya secara instan!</p>
+            <p>Aplikasi generator resep otomatis. Cukup ketik nama makanan, ide resep, bahan makanan atau jadwal, dan AI akan menghasilkan resepnya secara instan!</p>
             <input type="text" id="question" placeholder="Tulis disini..." class="search-input">
             <button class="generate-btn" onclick="askQuestion()">Buat Resep</button>
-            <div id="loading"><h2>Mphon ditunggu...</h2></div>
+            <div id="loading"><h2>Memuat...</h2></div>
         </section>
         <div class="description-box" id="response" style="display:none;">
             <!-- Respons akan ditampilkan di sini -->
@@ -246,12 +246,72 @@
         <button class="sign-up-btn">Jelajahi aplikasi AI lain »</button>
     </main>
     <footer>
-        <p><img src="http://aiinstitute.my.id/iaiis.png"></p>
+        <p><img src="http://aiinstitute.my.id/iaii.png"></p>
         <p>&copy; 2025 AI Institute</p>
     </footer>
 
     <script>
-     const _0x496f58=_0x216d;(function(_0xbedee3,_0x23c74b){const _0x8e9b20=_0x216d,_0x5b1322=_0xbedee3();while(!![]){try{const _0x284c20=parseInt(_0x8e9b20(0x1ed))/0x1*(parseInt(_0x8e9b20(0x1dc))/0x2)+parseInt(_0x8e9b20(0x1f1))/0x3+-parseInt(_0x8e9b20(0x1ec))/0x4*(parseInt(_0x8e9b20(0x1e1))/0x5)+-parseInt(_0x8e9b20(0x1d5))/0x6+parseInt(_0x8e9b20(0x1f2))/0x7+parseInt(_0x8e9b20(0x1ef))/0x8*(-parseInt(_0x8e9b20(0x1e7))/0x9)+-parseInt(_0x8e9b20(0x1e3))/0xa*(-parseInt(_0x8e9b20(0x1ee))/0xb);if(_0x284c20===_0x23c74b)break;else _0x5b1322['push'](_0x5b1322['shift']());}catch(_0x50552a){_0x5b1322['push'](_0x5b1322['shift']());}}}(_0xabd2,0xce679));const md=window[_0x496f58(0x1d7)]();async function askQuestion(){const _0x62c375=_0x496f58,_0xc14906=_0x62c375(0x1e9)+document[_0x62c375(0x1d3)](_0x62c375(0x1d6))['value']+_0x62c375(0x1e0)+'(Jika\x20bahan\x20dan\x20kriteria\x20belum\x20jelas,\x20buatkan\x20resep\x20yang\x20terbaik\x20yang\x20anda\x20tahu.).\x20langsung\x20jawab\x20diawali\x20dengan\x20nama\x20resep\x20tanpa\x20intro.\x20kemudian\x20tuliskan\x20resep\x20lengkap\x20dengan\x20detail.'+_0x62c375(0x1df)+_0x62c375(0x1eb),_0x31e53c=document[_0x62c375(0x1d3)](_0x62c375(0x1d1)),_0x3bf2cb=document[_0x62c375(0x1d3)](_0x62c375(0x1f0));_0x31e53c[_0x62c375(0x1d8)]['display']=_0x62c375(0x1e6),_0x3bf2cb[_0x62c375(0x1d8)][_0x62c375(0x1e5)]=_0x62c375(0x1e6),_0x3bf2cb[_0x62c375(0x1de)]='';try{const _0x7fddae=await fetch('https://rumahguru.org/api/index.php',{'method':_0x62c375(0x1f3),'headers':{'Content-Type':_0x62c375(0x1d2)},'body':JSON[_0x62c375(0x1da)]({'prompt':_0xc14906,'api':_0x62c375(0x1e4)})});if(!_0x7fddae['ok'])throw new Error(_0x62c375(0x1e2));const _0x35ac38=await _0x7fddae[_0x62c375(0x1dd)]();if(_0x35ac38[_0x62c375(0x1d9)]){const _0xfc19b0=md['render'](_0x35ac38[_0x62c375(0x1d9)]);_0x3bf2cb[_0x62c375(0x1de)]=''+_0xfc19b0;}else _0x3bf2cb[_0x62c375(0x1de)]=_0x62c375(0x1db);}catch(_0x40e334){_0x3bf2cb[_0x62c375(0x1de)]='<p>Error\x20fetching\x20data:\x20'+_0x40e334[_0x62c375(0x1ea)]+_0x62c375(0x1e8);}finally{_0x31e53c[_0x62c375(0x1d8)][_0x62c375(0x1e5)]='none';}}function _0x216d(_0x46c727,_0x1258da){const _0xabd24e=_0xabd2();return _0x216d=function(_0x216db5,_0x2a51bd){_0x216db5=_0x216db5-0x1d1;let _0x118a3d=_0xabd24e[_0x216db5];return _0x118a3d;},_0x216d(_0x46c727,_0x1258da);}function toggleMenu(){const _0x39ed6f=_0x496f58,_0x502bd8=document['querySelector']('nav\x20ul');_0x502bd8[_0x39ed6f(0x1d4)]['toggle']('active');}function _0xabd2(){const _0x372b5b=['message','\x20Tambahkan\x20ilustrasi\x20dengan\x20mengembedkan\x20URL\x20link\x20gambar\x20https://rumahguru.org/api/imagen.php?keyword=KEYWORDS\x20dengan\x20antar\x20keyword\x20sesuai\x20resep\x20dipisahkan\x20tanda\x20hypen\x20(gunakan\x20embed\x20gambar\x20format\x20markdown\x20dalam\x20respon,\x20contoh\x20!(https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura)\x20).','718036JLlMpN','29MwBzyf','1793DqPusZ','464qarWNh','response','1733886UVrscw','5557944WbDCwl','POST','loading','application/json','getElementById','classList','2124612xvKAfA','question','markdownit','style','text','stringify','<p>Tidak\x20ada\x20respons\x20teks\x20yang\x20tersedia.</p>','602nAabWS','json','innerHTML','\x20Di\x20akhir\x20berikan\x20tips\x20dan\x20penjelasan\x20singkat\x20makanan\x20ini\x20(misal\x20tentang\x20kebaikan/manfaatnya,\x20tradisi/sejarahnya\x20dll).','\x20INSTRUKSI:\x20Anda\x20akan\x20membuatkan\x20resep\x20masakan\x20(atau\x20minuman)\x20dengan\x20nama\x20makanan/minuman,\x20bahan\x20atau\x20kriteria\x20kriteria.\x20','25vMVLDd','Network\x20response\x20was\x20not\x20ok','138110gbkRSw','sk-097866776777575t67cc','display','block','238158mlKPLC','</p>','PROMPT:\x20'];_0xabd2=function(){return _0x372b5b;};return _0xabd2();}
+        const md = window.markdownit();
+
+        async function askQuestion() {
+            const question = "PROMPT: "+document.getElementById('question').value + " INSTRUKSI: Anda akan membuatkan resep masakan (atau minuman) dengan nama makanan/minuman, bahan atau kriteria kriteria. "
+            +"(Jika bahan dan kriteria belum jelas, buatkan resep yang terbaik yang anda tahu.). langsung jawab diawali dengan nama resep tanpa intro. kemudian tuliskan resep lengkap dengan detail."
+            +" Di akhir berikan tips dan penjelasan singkat makanan ini (misal tentang kebaikan/manfaatnya, tradisi/sejarahnya dll)."
+//            +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar format markdown dalam respon, contoh !(https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura) ).";
+          +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar URL dalam respon, contoh https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura (tanpa kurung, tanpa ALT ).";
+
+            // Tampilkan pesan loading
+            const loadingMessage = document.getElementById('loading');
+            const responseDiv = document.getElementById('response');
+            loadingMessage.style.display = 'block'; // Tampilkan pesan loading
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = ''; // Bersihkan respons sebelumnya
+
+            try {
+                const response = await fetch('https://rumahguru.org/api/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt: question, api:"sk-097866776777575t67cc" })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                if (data.text) {
+                    const parsedHtml = convertUrlToImageTag(md.render(data.text));
+                    responseDiv.innerHTML = `${parsedHtml}`;
+                } else {
+                    responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            } finally {
+                // Sembunyikan pesan loading setelah selesai
+                loadingMessage.style.display = 'none';
+            }
+        }
+
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+        }
+
+       function convertUrlToImageTag(inputString) {
+    // Regex untuk mencocokkan URL yang diawali dengan https://rumahguru.org/api/imagen.php?keyword=
+    const urlRegex = /https:\/\/rumahguru\.org\/api\/imagen\.php\?keyword=[^\s]+?(?=\s|\.|,|!|\?|$)/gi;
+
+    // Mengganti setiap URL yang cocok dengan tag <img>
+    const result = inputString.replace(urlRegex, (url) => {
+        return `<img src="${url}" alt="image" />`;
+    });
+
+    return result;
+}
+        
     </script>
 </body>
 </html>
