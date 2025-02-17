@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenStory</title>
+    <title>DishGen</title>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.2/dist/markdown-it.min.js"></script>
     <style>
         body {
@@ -63,7 +63,7 @@
 
         .hero {
             text-align: center;
-            //padding: 100px 20px;
+            padding: 100px 20px;
         }
 
         .hero h1 {
@@ -209,7 +209,7 @@
 </head>
 <body>
     <header>
-        <div class="logo"><a href="http://aiinstitute.my.id/tools/">GenStory</div>
+        <div class="logo">GenStory</div>
         <nav>
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             <ul>
@@ -244,7 +244,7 @@
             const question = "PROMPT: "+document.getElementById('question').value + " INSTRUKSI: Anda akan cerita anak yang menarik dan menggugah serta memiliki nuansa storytelling kuat. "
             +"langsung jawab diawali dengan judul tanpa intro. kemudian tuliskan cerita lengkap dengan detail."
             +" Di akhir berikan penjelasan singkat tentang hikmah cerita tersebut."
-            +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar format markdown dalam respon, contoh !(https://rumahguru.org/api/imagen.php?keyword=kucing-dan-anjing-pixar-style) ).";
+            +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (tulis URL gambar dalam respon, contoh: https://rumahguru.org/api/imagen.php?keyword=kucing-dan-anjing-pixar-style (tanpa tanda kurung.";
 
             // Tampilkan pesan loading
             const loadingMessage = document.getElementById('loading');
@@ -268,7 +268,7 @@
 
                 const data = await response.json();
                 if (data.text) {
-                    const parsedHtml = md.render(data.text);
+                    const parsedHtml = convertUrlToImageTag(md.render(data.text));
                     responseDiv.innerHTML = `${parsedHtml}`;
                 } else {
                     responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
@@ -285,6 +285,20 @@
             const navUl = document.querySelector('nav ul');
             navUl.classList.toggle('active');
         }
+        
+        
+        function convertUrlToImageTag(inputString) {
+    // Regex untuk mencocokkan URL yang diawali dengan https://rumahguru.org/api/imagen.php?keyword=
+    const urlRegex = /https:\/\/rumahguru\.org\/api\/imagen\.php\?keyword=[^\s]+?(?=\s|\.|,|!|\?|$)/gi;
+
+    // Mengganti setiap URL yang cocok dengan tag <img>
+    const result = inputString.replace(urlRegex, (url) => {
+        return `<img src="${url}" alt="image" />`;
+    });
+
+    return result;
+}
+        
     </script>
 </body>
 </html>
