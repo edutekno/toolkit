@@ -257,7 +257,8 @@
             const question = "PROMPT: "+document.getElementById('question').value + " INSTRUKSI: Anda akan membuatkan resep masakan (atau minuman) dengan nama makanan/minuman, bahan atau kriteria kriteria. "
             +"(Jika bahan dan kriteria belum jelas, buatkan resep yang terbaik yang anda tahu.). langsung jawab diawali dengan nama resep tanpa intro. kemudian tuliskan resep lengkap dengan detail."
             +" Di akhir berikan tips dan penjelasan singkat makanan ini (misal tentang kebaikan/manfaatnya, tradisi/sejarahnya dll)."
-            +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar format markdown dalam respon, contoh !(https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura) ).";
+//            +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar format markdown dalam respon, contoh !(https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura) ).";
+          +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (gunakan embed gambar URL dalam respon, contoh https://rumahguru.org/api/imagen.php?keyword=sate-ayam-madura (tanpa kurung, tanpa ALT ).";
 
             // Tampilkan pesan loading
             const loadingMessage = document.getElementById('loading');
@@ -281,7 +282,7 @@
 
                 const data = await response.json();
                 if (data.text) {
-                    const parsedHtml = md.render(data.text);
+                    const parsedHtml = convertUrlToImageTag(md.render(data.text));
                     responseDiv.innerHTML = `${parsedHtml}`;
                 } else {
                     responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
@@ -298,6 +299,19 @@
             const navUl = document.querySelector('nav ul');
             navUl.classList.toggle('active');
         }
+
+       function convertUrlToImageTag(inputString) {
+    // Regex untuk mencocokkan URL yang diawali dengan https://rumahguru.org/api/imagen.php?keyword=
+    const urlRegex = /https:\/\/rumahguru\.org\/api\/imagen\.php\?keyword=[^\s]+?(?=\s|\.|,|!|\?|$)/gi;
+
+    // Mengganti setiap URL yang cocok dengan tag <img>
+    const result = inputString.replace(urlRegex, (url) => {
+        return `<img src="${url}" alt="image" />`;
+    });
+
+    return result;
+}
+        
     </script>
 </body>
 </html>
