@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favai.png">
+    <title>GenPrompt</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.2/dist/markdown-it.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #6a5acd; /* Warna utama */
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #4b0082; /* Warna gelap untuk navbar */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        nav li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .premium {
+            color: #ffcc00;
+        }
+        .business {
+            color: #ffa500;
+        }
+        .login-btn {
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .hero {
+            text-align: center;
+            //padding: 100px 20px;
+            background-color: #6a5acd; /* Warna utama */
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            padding: 0 150px;
+            font-weight: 400;
+        }
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .generate-btn {
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .description-box {
+            background-color: white;
+            color: #1e1e1e; /* Warna gelap untuk teks */
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .description-box h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .description-box p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .description-box img {
+            width: 90%;
+            height: 90%;
+            align: center;
+        }
+        .sign-up-btn {
+            background-color: #9370db; /* Warna aksen */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            font-weight: bold;
+        }
+        #loading {
+            display: none;
+            font-style: italic;
+            color: #ffcc00;
+            text-align: center;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                display: none;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+            .search-input {
+                width: 90%;
+            }
+            .description-box h2 {
+                font-size: 28px;
+            }
+            .description-box p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GenPrompt</div>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul>
+                <li><a href="http://aiinstitute.my.id/tools">Aplikasi AI</a></li>
+                <li><a href="http://aiinstitute.id">Tentang Kami</a></li>
+            </ul>
+        </nav>
+        <img src="http://aiinstitute.my.id/iaiis.png">
+    </header>
+    <main>
+        <section class="hero">
+            <h1>GenPrompt</h1>
+            <p>Aplikasi pembuat prompt otomatis dan berkualitas. Cukup ketik prompt dasar Anda dan AI akan menghasilkan deskripsi prompt yang lebih berkualitas!</p>
+ 
+ 
+<select class='search-input' id='komponen' name='komponen'>
+<option value=' Berikut ini adalah format struktur untuk membuat prompt, yaitu: RTF (Role, Task, Format), CTF (Context, Task, Format), PECRA (Purpose, Expectation, Context, Request, Action), CREATE (Character, Request, Examples, Adjustments, Type, Extras), CREO (Context, Request, Explanation, Outcome), PAIN (Problem, Action, Information, Next Steps), TREF (Task, Requirement, Expectation, Format), GRADE (Goal, Request, Action, Detail, Examples), ROSES (Role, Objective, Scenario, Expected Solution, Steps), RDIREC (Role, Definition, Intent, Request, Example, Clarification), RSCET (Role, Situation, Complication, Expectation, Task), RASCEF (Role, Action, Steps, Context, Examples, Format), APE (Action, Purpose, Expectation), TAG (Task, Action, Goal), ERA (Expectation, Role, Action), RACE (Role, Action, Context, Expectation), COAST (Context, Objective, Actions, Scenario, Task), RISE (Role, Input, Steps, Expectation), SPARK (Situation, Problem, Aspiration, Results, Kismet)./nBuatkan prompt yang tepat dan efektif (bahasa indonesia dan bahasa inggris) untuk ditanyakan ke AI chatbot dengan mennuliskan dengan memilih salah satu struktur yang paling tepat (sesuai topik yang diberikan). Tuliskan 7 prompt dengan struktur/format berbeda yang dituliskan dalam 1 paragraf panjang dan detail berupa instruksi  menggunakan kalimat perintah yang operasional. tuliskan nama format/struktur di akhir kalimat dalam tanda kurung. Prompt awal atau topiknya adalah berikut:'>Prompt Maker</option>
+<option value=' Buatkan prompt yang tepat dan efektif (bahasa indonesia dan bahasa inggris) untuk ditanyakan ke AI chatbot dengan mennuliskan Role untuk AI (misalnya: kamu adalah seorang ahli di bidang... dst) dilanjutkan dengan instruksi lengkap mengikuti framework co-star (Context, Objective, Style, Tone, Audience, and Response  atau Konteks, Tujuan, Gaya, Suasana, Audiens, dan Respons.) dan buatkan 5 buah contoh prompt yang sesuai framework co-star ysb. Di akhir, buatkan contoh prompt lengkap tersebut dalam bentuk paragraf yang mudah untuk di-copy-paste (bahasa indonesia dan bahasa inggris). tambahkan saran penggunaan dan cara mengevaluasi dan memperbaiki hasil prompt agar lebih efektif. /n Prompt awal atau topiknya adalah berikut: '>Prompt Maker (CO-STAR)</option>
+<option value=' Buatkan prompt yang tepat dan efektif (bahasa indonesia dan bahasa inggris) untuk ditanyakan ke AI chatbot dengan menuliskan Role untuk AI (misalnya: kamu adalah seorang ahli di bidang... dst) mengikuti panduan Anthropic Prompt Guide (Jangan me-mention Anthropic). Berikan contoh prompt lengkap sebanyak 3 prompt (bahasa indonesia dan english). /n Prompt awal atau topiknya adalah berikut: '>Prompt Maker (Anthropic)</option>
+<option value=' Buatkan perintah/prompt untuk generate gambar/image. Tuliskan dengan jelas subjek utama, latar dan lingkungan, style dan angle yang menarik. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris dengan gaya  visual menarik dengan berdasar deskripsi berikut:'>Prompt Gambar</option>
+<option value=' Buatkan perintah/prompt untuk generate gambar/image. Tuliskan sesuai kriteria (Criteria: 1-Positive Language: Use positive words to specify desired elements in your prompts, avoiding negative terms that can lead to unwanted inclusions.2-Prioritize Keywords: Place important words at the start of your prompts to influence image focus and composition.3-Color and Lighting Control: Specify color palettes and lighting styles to achieve desired visual effects in generated images. 4-Utilize Word Weight: Use weight scoring for specific words to emphasize their importance in the generated images effectively. 5-Short and Concise Prompts: Keep prompts short and focused on key elements to enhance clarity and improve results.). Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf dengan deskripsi vivid,panjang dan detail (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris dengan gaya  visual menarik dengan berdasar deskripsi berikut:'>Prompt Gambar (Midjourney)</option>
+<option value=' Buatkan perintah/prompt untuk generate video. Tuliskan dengan jelas subjek utama, latar dan lingkungan, gerakan atau transisi dan angle yang menarik. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris dengan gaya  visual menarik dengan berdasar deskripsi berikut:'>Prompt Video</option>
+<option value=' Buatkan perintah/prompt untuk generate suara dengan karakteristik unik. Tuliskan dengan panjang dan jelas menunjukkan subjek utama, style, intonasi, perasaan. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris  berdasar deskripsi berikut:'>Prompt Suara</option>
+<option value=' Buatkan perintah/prompt untuk generate musik/lagu dengan karakteristik unik. Tuliskan dengan panjang dan jelas menunjukkan style, intonasi, perasaan, kecepatan, genre. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris  berdasar deskripsi berikut:'>Prompt Musik/Lagu</option>
+
+<option value=' Buatkan perintah/prompt untuk generate software aplikasi berbasis web. Tuliskan dengan jelas fungsi aplikasi, fitur, mekanisme kerja dan deskripsi komponen UI/UX nya dan skema warna nya. Jangan menambahkan informasi lain. Tuliskan prompt dan judulnya dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris dengan prompt berdasar deskripsi/informasi berikut:'>Prompt Aplikasi Software</option>
+
+<option value=' Buatkan Role System untuk AI assistant. Tuliskan dengan panjang dan jelas menunjukkan peran utama dan tugas yang relevan. Jangan menambahkan informasi lain. Tuliskan Role dalam satu paragraf (tanpa bullet points) dalam bahasa Indonesia dan bahasa Inggris  untuk  deskripsi berikut:'>AI Role Maker</option>
+<option value=' Tampilkan gambar yang diembedded dengan dengan format !![](https://image.pollinations.ai/prompt/{keyword}) . Jangan tambahkan spasi pada format tsb . Keyword ditulis dalam bahasa inggris, ganti spasi dengan hypen. Tulis judul. keyword dan deskripsi (deskripsi merupakan posting social media yang inspiratif dan menarik). Jangan menambahkan informasi lain. Buatkan keyword dengan gaya visual menarik dengan berdasar deskripsi berikut:'>Generate Gambar+Caption</option>
+<option value=' Tampilkan gambar yang diembedded dengan dengan format !![](https://image.pollinations.ai/prompt/{keyword}) . Jangan tambahkan spasi pada format tsb . Keyword ditulis dalam bahasa inggris, ganti spasi dengan hypen. Tulis sebuah cerita dalam bahasa Indonesia dan Inggris (500 kata lebih) dengan judul menarik sesuai keyword. tuliskan cerita yang menarik dan memiliki makna dan hikmah yang positif. Jangan menambahkan informasi lain. Buatkan keyword dengan gaya visual menarik dengan berdasar deskripsi berikut:'>Story Maker</option>
+
+                </select>
+ 
+            <input type="text" id="question" placeholder="Tulis prompt awal disini..." class="search-input">
+            <br>
+            <button class="generate-btn" onclick="askQuestion()">Buat Prompt</button>
+            <div id="loading"><h2>Memuat...</h2></div>
+        </section>
+        <div class="description-box" id="response" style="display:none;">
+            <!-- Respons akan ditampilkan di sini -->
+        </div>
+        <button class="sign-up-btn">Jelajahi aplikasi AI lain »</button>
+    </main>
+    <footer>
+        <p><img src="http://aiinstitute.my.id/iaii.png"></p>
+        <p>&copy; 2025 AI Institute</p>
+    </footer>
+
+    <script>
+        const md = window.markdownit();
+
+        async function askQuestion() {
+            const promptText = ``;
+
+            const question = document.getElementById('komponen').value+ " " + document.getElementById('question').value + promptText;
+//            +" Tambahkan ilustrasi dengan menambah URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen contoh: https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women (tanpa tanda kurung tanpa alt).";
+
+            // Tampilkan pesan loading
+            const loadingMessage = document.getElementById('loading');
+            const responseDiv = document.getElementById('response');
+            loadingMessage.style.display = 'block'; // Tampilkan pesan loading
+            //responseDiv.style.display = 'block';
+            responseDiv.innerHTML = ''; // Bersihkan respons sebelumnya
+
+            try {
+                const response = await fetch('https://rumahguru.org/api/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt: question, api: "sk-097866776777575t67cc" })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                if (data.text) {
+                    responseDiv.style.display = 'block';
+                    const parsedHtml = md.render(cleanEx(data.text));
+                     finalHtml = convertUrlToImageTag((parsedHtml));
+                    
+                    responseDiv.innerHTML = finalHtml;
+                    console.log(parsedHtml);
+                } else {
+                    responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            } finally {
+                // Sembunyikan pesan loading setelah selesai
+                loadingMessage.style.display = 'none';
+            }
+        }
+
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+        }
+
+        function mdImage(markdown) {
+            // Menggunakan regex untuk mencocokkan pola Markdown gambar: ![alt text](url)
+            const regex = /!\(([^)]+)\)/g;
+            // Mengganti setiap kecocokan dengan tag <img> HTML
+            const html = markdown.replace(regex, (match, url) => {
+                return `<img src="${url}" alt="">`;
+            });
+            return html;
+        }
+
+        function cleanEx(inputString) {
+            // Regex untuk mencocokkan "! (" dan menggantinya dengan "!("
+            const regex = /!\s*\(/g;
+            // Mengganti semua kecocokan dengan "!("
+            const result = inputString.replace(regex, '!(');
+            return result;
+        }
+
+       function convertUrlToImageTag(inputString) {
+    // Regex untuk mencocokkan URL yang diawali dengan https://rumahguru.org/api/imagen.php?keyword=
+    const urlRegex = /https:\/\/rumahguru\.org\/api\/imagen\.php\?keyword=[^\s]+?(?=\s|\.|,|!|\?|$)/gi;
+
+    // Mengganti setiap URL yang cocok dengan tag <img>
+    const result = inputString.replace(urlRegex, (url) => {
+        return `<img src="${url}" alt="image" />`;
+    });
+
+    return result;
+}
+
+        
+    </script>
+</body>
+</html>
