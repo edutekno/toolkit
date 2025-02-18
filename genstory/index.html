@@ -1,35 +1,37 @@
+
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenStory</title>
+    <link rel="icon" type="image/png" href="favai.png">
+    <title>GenPrompt</title>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.2/dist/markdown-it.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #6a5acd;
+            font-family: 'Poppins', sans-serif;
+            background-color: #6a5acd; /* Warna utama */
             color: white;
         }
-
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: white;
+            background-color: #4b0082; /* Warna gelap untuk navbar */
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #6a5acd;
+            color: white;
         }
-
         nav ul {
             list-style: none;
             display: flex;
@@ -37,46 +39,42 @@
             margin: 0;
             padding: 0;
         }
-
         nav li a {
             text-decoration: none;
-            color: black;
+            color: white;
             font-weight: bold;
         }
-
         .premium {
-            color: purple;
+            color: #ffcc00;
         }
-
         .business {
-            color: orange;
+            color: #ffa500;
         }
-
         .login-btn {
-            background-color: #6a5acd;
+            background-color: #9370db; /* Warna aksen */
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
+            font-weight: bold;
         }
-
         .hero {
             text-align: center;
-            padding: 100px 20px;
+            //padding: 100px 20px;
+            background-color: #6a5acd; /* Warna utama */
         }
-
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
+            font-weight: 700;
         }
-
         .hero p {
             font-size: 20px;
             margin-bottom: 30px;
             padding: 0 150px;
+            font-weight: 400;
         }
-
         .search-input {
             width: 80%;
             max-width: 600px;
@@ -85,51 +83,50 @@
             border-radius: 20px;
             margin-bottom: 20px;
             font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #9370db; /* Warna aksen */
+            color: white;
         }
-
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
         .generate-btn {
-            background-color: black;
+            background-color: #4b0082; /* Warna gelap */
             color: white;
             border: none;
             padding: 15px 30px;
             border-radius: 20px;
             font-size: 18px;
             cursor: pointer;
+            font-weight: bold;
         }
-
         .description-box {
             background-color: white;
-            color: black;
+            color: #1e1e1e; /* Warna gelap untuk teks */
             padding: 20px;
             margin: 20px auto;
             max-width: 800px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         .description-box h2 {
             font-size: 36px;
             margin-bottom: 20px;
+            font-weight: 700;
         }
-
-/*
         .description-box p {
             font-size: 18px;
             line-height: 1.5;
             margin-bottom: 20px;
+            font-weight: 400;
         }
-*/
-
         .description-box img {
             width: 90%;
-            height:90%;
-            align:center;
+            height: 90%;
+            align: center;
         }
-
-
-
         .sign-up-btn {
-            background-color: #6a5acd;
+            background-color: #9370db; /* Warna aksen */
             color: white;
             border: none;
             padding: 15px 30px;
@@ -140,67 +137,57 @@
             max-width: 800px;
             margin: 20px auto;
             display: block;
+            font-weight: bold;
         }
-
         #loading {
             display: none;
             font-style: italic;
-            color: #ffcc00; /* Warna lebih kontras */
+            color: #ffcc00;
             text-align: center;
             margin-top: 20px;
         }
-
         footer {
-            background-color: white;
-            color: black;
+            background-color: #4b0082; /* Warna gelap */
+            color: white;
             text-align: center;
             padding: 20px;
             margin-top: 50px;
         }
-
         .menu-toggle {
             display: none;
             font-size: 24px;
             cursor: pointer;
+            color: white;
         }
-
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-
             nav ul {
                 flex-direction: column;
                 gap: 10px;
-                display: none; /* Sembunyikan menu di mobile */
+                display: none;
             }
-
             nav ul.active {
-                display: flex; /* Tampilkan menu saat aktif */
+                display: flex;
             }
-
             .menu-toggle {
-                display: block; /* Tampilkan tombol toggle */
+                display: block;
             }
-
             .hero h1 {
                 font-size: 36px;
             }
-
             .hero p {
                 font-size: 16px;
-                padding: 0 20px; /* Padding lebih nyaman di mobile */
+                padding: 0 20px;
             }
-
             .search-input {
                 width: 90%;
             }
-
             .description-box h2 {
                 font-size: 28px;
             }
-
             .description-box p {
                 font-size: 16px;
             }
@@ -213,44 +200,60 @@
         <nav>
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             <ul>
-                <li><a href="#">Aplikasi AI</a></li>
-                <li><a href="#">Bantuan</a></li>
-                <li><a href="#" class="business">Tentang Kami</a></li>
+                <li><a href="http://aiinstitute.my.id/tools">Aplikasi AI</a></li>
+                <li><a href="http://aiinstitute.id">Tentang Kami</a></li>
             </ul>
         </nav>
-        <button class="login-btn">Masuk / Daftar</button>
+        <img src="http://aiinstitute.my.id/iaiis.png">
     </header>
     <main>
         <section class="hero">
             <h1>GenStory</h1>
-            <p>Aplikasi pembuat cerita anak otomatis. Cukup ketik ide cerita atau tokoh atau ide lainnya dan AI akan menghasilkan cerita secara ajaib!</p>
+            <p>Aplikasi pembuat cerita otomatis dengan berbagai jenis. Cukup ketik ide Anda dan AI akan menghasilkan cerita yang menarik!</p>
+ 
+ 
+<select class='search-input' id='komponen' name='komponen'>
+<option value=' Fabel'>Fabel</option>
+<option value=' Dongeng'>Dongeng</option>
+<option value=' Fiksi ilmiah'>Fiksi Ilmiah</option>
+<option value=' Misteri'>Misteri</option>
+<option value=' Plot twist'>Plot Twist</option>
+
+
+                </select><br>
+ 
             <input type="text" id="question" placeholder="Tulis disini..." class="search-input">
+            <br>
             <button class="generate-btn" onclick="askQuestion()">Buat Cerita</button>
-            <div id="loading"><h2>LOADING...</h2></div>
+            <div id="loading"><h2>Memuat...</h2></div>
         </section>
         <div class="description-box" id="response" style="display:none;">
             <!-- Respons akan ditampilkan di sini -->
         </div>
-        <button class="sign-up-btn">Daftar untuk akses aplikasi AI lain »</button>
+        <button class="sign-up-btn">Jelajahi aplikasi AI lain »</button>
     </main>
     <footer>
-        <p>&copy; 2025 DishGen. Semua hak dilindungi.</p>
+        <p><img src="http://aiinstitute.my.id/iaii.png"></p>
+        <p>&copy; 2025 AI Institute</p>
     </footer>
 
     <script>
         const md = window.markdownit();
 
         async function askQuestion() {
-            const question = "PROMPT: "+document.getElementById('question').value + " INSTRUKSI: Anda akan cerita anak yang menarik dan menggugah serta memiliki nuansa storytelling kuat. "
+            const promptText = ``;
+
+            const question = "TOPIK: "+document.getElementById('question').value + "Genre: "+document.getElementById('komponen').value +" /nINSTRUKSI: Anda akan cerita anak yang menarik dan menggugah serta memiliki nuansa storytelling kuat. "
             +"langsung jawab diawali dengan judul tanpa intro. kemudian tuliskan cerita lengkap dengan detail."
             +" Di akhir berikan penjelasan singkat tentang hikmah cerita tersebut."
             +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (tulis URL gambar dalam respon, contoh: https://rumahguru.org/api/imagen.php?keyword=kucing-dan-anjing-pixar-style (tanpa tanda kurung.";
+//            +" Tambahkan ilustrasi dengan menambah URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen contoh: https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women (tanpa tanda kurung tanpa alt).";
 
             // Tampilkan pesan loading
             const loadingMessage = document.getElementById('loading');
             const responseDiv = document.getElementById('response');
             loadingMessage.style.display = 'block'; // Tampilkan pesan loading
-            responseDiv.style.display = 'block';
+            //responseDiv.style.display = 'block';
             responseDiv.innerHTML = ''; // Bersihkan respons sebelumnya
 
             try {
@@ -259,7 +262,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ prompt: question, api:"sk-097866776777575t67cc" })
+                    body: JSON.stringify({ prompt: question, api: "sk-097866776777575t67cc" })
                 });
 
                 if (!response.ok) {
@@ -268,8 +271,12 @@
 
                 const data = await response.json();
                 if (data.text) {
-                    const parsedHtml = convertUrlToImageTag(md.render(data.text));
-                    responseDiv.innerHTML = `${parsedHtml}`;
+                    responseDiv.style.display = 'block';
+                    const parsedHtml = md.render(cleanEx(data.text));
+                     finalHtml = convertUrlToImageTag((parsedHtml));
+                    
+                    responseDiv.innerHTML = finalHtml;
+                    console.log(parsedHtml);
                 } else {
                     responseDiv.innerHTML = '<p>Tidak ada respons teks yang tersedia.</p>';
                 }
@@ -285,9 +292,26 @@
             const navUl = document.querySelector('nav ul');
             navUl.classList.toggle('active');
         }
-        
-        
-        function convertUrlToImageTag(inputString) {
+
+        function mdImage(markdown) {
+            // Menggunakan regex untuk mencocokkan pola Markdown gambar: ![alt text](url)
+            const regex = /!\(([^)]+)\)/g;
+            // Mengganti setiap kecocokan dengan tag <img> HTML
+            const html = markdown.replace(regex, (match, url) => {
+                return `<img src="${url}" alt="">`;
+            });
+            return html;
+        }
+
+        function cleanEx(inputString) {
+            // Regex untuk mencocokkan "! (" dan menggantinya dengan "!("
+            const regex = /!\s*\(/g;
+            // Mengganti semua kecocokan dengan "!("
+            const result = inputString.replace(regex, '!(');
+            return result;
+        }
+
+       function convertUrlToImageTag(inputString) {
     // Regex untuk mencocokkan URL yang diawali dengan https://rumahguru.org/api/imagen.php?keyword=
     const urlRegex = /https:\/\/rumahguru\.org\/api\/imagen\.php\?keyword=[^\s]+?(?=\s|\.|,|!|\?|$)/gi;
 
@@ -298,6 +322,7 @@
 
     return result;
 }
+
         
     </script>
 </body>
