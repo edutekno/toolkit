@@ -167,9 +167,20 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        nav ul li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #c793e0;
+}
     </style>
 </head>
 <body>
+    <!--
     <header>
         <div class="logo">AI Tools</div>
         <nav>
@@ -181,6 +192,23 @@
         </nav>
         <a href="http://aiinstitute.id"><img src="http://aiinstitute.my.id/iaiis.png"></a>
     </header>
+    -->
+
+   <header>
+        <div class="logo">
+            <img src="https://aiinstitute.id/ai-logo-text.svg" alt="AI Institute Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" >Home</a></li>
+                <li><a href="http://aiinstitute.my.id/tools" class="active">AI Products</a></li>
+                <li><a href="http://aiinstitute.id/">About Us</a></li>
+            </ul>
+        </nav>
+        <button class="login-btn">Login</button>
+    </header>
+
+    
     <main>
         <section class="hero">
             <h1>Selamat Datang di AI Tools</h1>
