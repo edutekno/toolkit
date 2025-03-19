@@ -208,8 +208,8 @@
     </header>
     <main>
         <section class="hero">
-            <h1>GenPrompt</h1>
-            <p>Aplikasi pembuat prompt otomatis dan berkualitas. Cukup ketik prompt dasar Anda dan AI akan menghasilkan deskripsi prompt yang lebih berkualitas!</p>
+            <h1>GenPro</h1>
+            <p>Aplikasi pembuat deskripsi otomatis dan berkualitas. Cukup ketik nama atau deskripsi produk dan AI akan membuatkan deskripsi lengkap!</p>
  
  
 <select class='search-input' id='komponen' name='komponen'>
@@ -222,10 +222,10 @@
 
                 </select><br>
  
-<option value=' Dongeng'>Dongeng</option>
-            <input type="text" id="question" placeholder="Tulis prompt awal disini..." class="search-input">
+<option value=' Produk'>Produk</option>
+            <input type="text" id="question" placeholder="Tulis produk disini..." class="search-input">
             <br>
-            <button class="generate-btn" onclick="askQuestion()">Buat Cerita</button>
+            <button class="generate-btn" onclick="askQuestion()">Buat Deskripsi Produk</button>
             <div id="loading"><h2>Memuat...</h2></div>
         </section>
         <div class="description-box" id="response" style="display:none;">
@@ -242,14 +242,27 @@
         const md = window.markdownit();
 
         async function askQuestion() {
-            const promptText = ``;
+            //const promptText = ``;
+            const promptText = `Buatlah 5 deskripsi produk dengan pendekatan yang berbeda-beda. Pastikan setiap deskripsi memiliki gaya dan fokus yang unik dengan headline menarik:
+            1. Deskripsi Berbasis Manfaat: Soroti manfaat utama produk bagi pelanggan. Gunakan bahasa persuasif dan fokus pada bagaimana produk ini dapat memecahkan masalah atau meningkatkan kehidupan pengguna. Sertakan 3 poin utama tentang apa yang membuat produk ini unik dibandingkan pesaingnya.
+            2. Deskripsi Emosional: Hubungkan pelanggan secara emosional dengan produk. Soroti bagaimana produk ini dapat meningkatkan kebahagiaan, kepercayaan diri, atau kualitas hidup mereka. Gunakan bahasa yang inspiratif dan buat pembaca merasa bahwa produk ini adalah jawaban atas impian mereka.
+            3. Deskripsi Keunikan Produk: Fokus pada fitur-fitur unik yang tidak dimiliki oleh produk lain di pasaran. Gunakan bahasa yang kreatif dan buat pembaca merasa bahwa mereka akan melewatkan sesuatu yang istimewa jika tidak membeli produk ini.
+            4. Deskripsi Storytelling: Gunakan pendekatan storytelling untuk menjelaskan bagaimana produk ini dapat menjadi bagian dari kehidupan sehari-hari pelanggan. Ceritakan bagaimana produk ini mengubah pengalaman mereka menjadi lebih baik.
+            5. Deskripsi SEO-Friendly: Tulis deskripsi yang dioptimalkan untuk SEO. Pastikan mencakup kata kunci seperti '{Kata Kunci Utama}' dan '{Kata Kunci Terkait}', serta sertakan manfaat produk, fitur utama, dan ajakan bertindak (CTA) yang jelas.
+            Pastikan setiap deskripsi memiliki tone yang sesuai dengan pendekatannya dan tetap relevan dengan target audiens.`;
 
-            const question = "TOPIK: "+document.getElementById('question').value + "Genre: "+document.getElementById('komponen').value +" /nINSTRUKSI: Anda akan cerita anak yang menarik dan menggugah serta memiliki nuansa storytelling kuat. "
+ 
+
+            const question1 = "TOPIK: "+document.getElementById('question').value + "Genre: "+document.getElementById('komponen').value +" /nINSTRUKSI: Anda akan cerita anak yang menarik dan menggugah serta memiliki nuansa storytelling kuat. "
             +"langsung jawab diawali dengan judul tanpa intro. kemudian tuliskan cerita lengkap dengan detail."
             +" Di akhir berikan penjelasan singkat tentang hikmah cerita tersebut."
             +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (tulis URL gambar dalam respon, contoh: https://rumahguru.org/api/imagen.php?keyword=kucing-dan-anjing-pixar-style (tanpa tanda kurung.";
 //            +" Tambahkan ilustrasi dengan menambah URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen contoh: https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women (tanpa tanda kurung tanpa alt).";
 
+            const question = "NAMA PRODUK: " + document.getElementById('question').value + promptText
+                + " Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen (gunakan embed gambar format MARKDOWN dalam respon (diawali exclamation mark dan kurung buka tanpa spasi), contoh: !(https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women) ).";
+
+            
             // Tampilkan pesan loading
             const loadingMessage = document.getElementById('loading');
             const responseDiv = document.getElementById('response');
