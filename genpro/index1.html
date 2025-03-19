@@ -208,7 +208,7 @@
             <h1>GenPro</h1>
             <p>Aplikasi pembuat deskripsi otomatis dan berkualitas. Cukup ketik nama atau deskripsi produk dan AI akan membuatkan deskripsi lengkap!</p>
  
- 
+ <!--
 <select class='search-input' id='komponen' name='komponen'>
 <option value=' Casual'>Casual/Umum</option>
 <option value=' Fabel'>Fabel</option>
@@ -219,7 +219,7 @@
 
 
                 </select><br>
- 
+ -->
             <input type="text" id="question" placeholder="Tulis produk disini..." class="search-input">
             <br>
             <button class="generate-btn" onclick="askQuestion()">Buat Deskripsi Produk</button>
@@ -249,13 +249,13 @@
             Pastikan setiap deskripsi memiliki tone yang sesuai dengan pendekatannya dan tetap relevan dengan target audiens.`;
 
  
-
+<!--
             const question1 = "TOPIK: "+document.getElementById('question').value + "Genre: "+document.getElementById('komponen').value +" /nINSTRUKSI: Anda akan cerita anak yang menarik dan menggugah serta memiliki nuansa storytelling kuat. "
             +"langsung jawab diawali dengan judul tanpa intro. kemudian tuliskan cerita lengkap dengan detail."
             +" Di akhir berikan penjelasan singkat tentang hikmah cerita tersebut."
             +" Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai resep dipisahkan tanda hypen (tulis URL gambar dalam respon, contoh: https://rumahguru.org/api/imagen.php?keyword=kucing-dan-anjing-pixar-style (tanpa tanda kurung.";
 //            +" Tambahkan ilustrasi dengan menambah URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen contoh: https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women (tanpa tanda kurung tanpa alt).";
-
+-->
             const question = "NAMA PRODUK: " + document.getElementById('question').value + promptText
                 + " Tambahkan ilustrasi dengan mengembedkan URL link gambar https://rumahguru.org/api/imagen.php?keyword=KEYWORDS dengan antar keyword sesuai produk dipisahkan tanda hypen (gunakan embed gambar format MARKDOWN dalam respon (diawali exclamation mark dan kurung buka tanpa spasi), contoh: !(https://rumahguru.org/api/imagen.php?keyword=smartwatch-stylis-women) ).";
 
